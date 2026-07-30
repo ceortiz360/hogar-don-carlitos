@@ -415,23 +415,6 @@
               <span><span class="hdc-contact-label">{{ t.contact.locLabel }}</span><span class="hdc-contact-loc-value">{{ t.contact.locValue }}</span></span>
             </div>
           </div>
-          <div class="hdc-contact-form">
-            <h2 class="hdc-contact-form-title">{{ t.contact.formTitle }}</h2>
-            <p class="hdc-contact-form-sub">{{ t.contact.formSub }}</p>
-            <div class="hdc-contact-form-fields">
-              <label class="hdc-field-wrap">
-                <span class="hdc-field-label">{{ t.contact.fName }}</span>
-                <input class="input hdc-field-input" value="{{ formName }}" onInput="{{ onName }}" placeholder="{{ t.contact.phName }}">
-              </label>
-              <label class="hdc-field-wrap">
-                <span class="hdc-field-label">{{ t.contact.fMsg }}</span>
-                <textarea class="input hdc-field-textarea" value="{{ formMsg }}" onInput="{{ onMsg }}" rows="4" placeholder="{{ t.contact.phMsg }}"></textarea>
-              </label>
-              <a href="{{ contactSubmitHref }}" target="_blank" rel="noopener" class="btn btn-primary hdc-btn-contact-submit">{{ t.contact.send }}
-                <svg class="hdc-icon-ml-10" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
-              </a>
-            </div>
-          </div>
         </div>
       </section>
     </div>
@@ -599,7 +582,7 @@ class Component extends DCLogic {
           title: 'Estamos a un mensaje de distancia',
           lead: 'Escríbenos para adoptar, donar, ser voluntario o resolver cualquier duda. Nos encanta saber de personas que quieren ayudar.',
           locLabel: 'Ubicación',
-          locValue: 'Colombia · A convenir',
+          locValue: 'Dosquebradas · Risaralda · Colombia',
           formTitle: 'Escríbenos',
           formSub: 'Cuéntanos cómo quieres ayudar y te responderemos por WhatsApp.',
           fName: 'Tu nombre',
