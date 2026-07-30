@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<script src="./js/support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<template id="__bundler_thumbnail" data-bg-color="#201e1d">
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="800" fill="#201e1d"/>
+<circle cx="600" cy="330" r="150" fill="#ec3013"/>
+<text x="600" y="365" font-family="Arial" font-size="130" fill="#201e1d" text-anchor="middle">HD</text>
+<text x="600" y="560" font-family="Arial" font-size="56" fill="#f3f2f2" text-anchor="middle">Hogar Don Carlitos</text>
+</svg>
+</template>
+<link rel="stylesheet" href="_ds/modernist-b2eb6d98-5ef1-4f3e-831f-98b7e9fd00cd/styles.css">
+<link rel="stylesheet" href="css/site.css">
+<script src="_ds/modernist-b2eb6d98-5ef1-4f3e-831f-98b7e9fd00cd/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<script src="js/image-slot.js"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+  a { color: var(--color-accent-700); text-underline-offset: 3px; }
+  a:hover { color: var(--color-accent); }
+  ::selection { background: color-mix(in srgb, var(--color-accent) 22%, transparent); }
+  .hdc-link:hover { color: var(--color-accent) !important; }
+  .hdc-card { transition: box-shadow .18s ease, transform .18s ease; }
+  .hdc-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  @keyframes hdcKen { from { transform: scale(1.02); } to { transform: scale(1.12); } }
+</style>
+</helmet>
+<div class="hdc-app-shell">
+
+  <nav class="hdc-nav">
+    <button class="hdc-nav-brand" onClick="{{ goHome }}">
+      <span class="hdc-icon-badge">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="2"></circle><circle cx="18" cy="8" r="2"></circle><circle cx="20" cy="16" r="2"></circle><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"></path></svg>
+      </span>
+      <span class="hdc-nav-brand-text">
+        <span class="hdc-nav-brand-title">Hogar Don Carlitos</span>
+        <span class="hdc-nav-brand-tag">{{ t.brandTag }}</span>
+      </span>
+    </button>
+
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <div class="hdc-nav-mobile-actions">
+        <button onClick="{{ goDonate }}" class="btn btn-primary hdc-btn-nav-donate-mobile">{{ t.nav.donate }}</button>
+        <button class="hdc-nav-menu-btn" onClick="{{ toggleMenu }}" aria-label="Menu">
+          <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+          </sc-if>
+          <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </sc-if>
+        </button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <div class="hdc-nav-desktop-actions">
+        <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="4">
+          <button class="hdc-link" onClick="{{ item.onClick }}" style="{{ item.style }}">{{ item.label }}</button>
+        </sc-for>
+        <button class="hdc-nav-lang-btn" onClick="{{ toggleLang }}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          {{ t.langOther }}
+        </button>
+        <button onClick="{{ goDonate }}" class="btn btn-primary hdc-btn-nav-donate">{{ t.nav.donate }}</button>
+      </div>
+    </sc-if>
+  </nav>
+
+  <sc-if value="{{ showMobileMenu }}" hint-placeholder-val="{{ false }}">
+    <div class="hdc-mobile-menu">
+      <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="4">
+        <button class="hdc-link" onClick="{{ item.onClick }}" style="{{ item.mobileStyle }}">{{ item.label }}</button>
+      </sc-for>
+      <button class="hdc-mobile-menu-lang-btn" onClick="{{ toggleLang }}">{{ t.switchTo }}</button>
+    </div>
+  </sc-if>
+
+  <!-- ============================ INICIO ============================ -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <div>
+      <section class="hdc-hero">
+        <sc-for list="{{ slides }}" as="s" hint-placeholder-count="6">
+          <div style="{{ s.wrapStyle }}">
+            <sc-if value="{{ s.isWelcome }}" hint-placeholder-val="{{ false }}">
+              <div class="hdc-abs-fill">
+                <sc-if value="{{ s.isImg1 }}" hint-placeholder-val="{{ false }}">
+                  <img class="hdc-hero-img-pos-a" src="uploads/1..png" alt="Perrita de bienvenida">
+                </sc-if>
+                <sc-if value="{{ s.isImg2 }}" hint-placeholder-val="{{ false }}">
+                  <img class="hdc-hero-img-pos-b" src="uploads/2.png" alt="Perrito rescatado">
+                </sc-if>
+                <sc-if value="{{ s.isImg3 }}" hint-placeholder-val="{{ false }}">
+                  <img class="hdc-hero-img-pos-a" src="uploads/3-cc6d5ecf.png" alt="Perro sonriendo">
+                </sc-if>
+                <sc-if value="{{ s.isImg4 }}" hint-placeholder-val="{{ false }}">
+                  <img class="hdc-hero-img-pos-b" src="uploads/4.png" alt="Perro negro feliz">
+                </sc-if>
+                <sc-if value="{{ s.isImg5 }}" hint-placeholder-val="{{ false }}">
+                  <img class="hdc-hero-img-pos-b" src="uploads/5.png" alt="Perro sonriente pidiendo una oportunidad">
+                </sc-if>
+              </div>
+            </sc-if>
+            <sc-if value="{{ s.isWelcomeNot }}" hint-placeholder-val="{{ true }}">
+              <div class="grayscale hdc-abs-fill">
+                <image-slot class="hdc-hero-slot-img" id="{{ s.id }}" shape="rect" placeholder="{{ s.placeholder }}"></image-slot>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+        <div class="hdc-hero-gradient"></div>
+
+        <div class="hdc-hero-content">
+          <span class="hdc-hero-kicker">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.4 8.4 2 5 5.3 5c2 0 3.4 1.2 4.2 2.4C10.3 6.2 11.7 5 13.7 5 17 5 18.6 8.4 17 11.8 14.5 16.4 12 21 12 21z"></path></svg>
+            {{ t.hero.kicker }}
+          </span>
+          <h1 class="hdc-hero-title">{{ t.hero.title }}</h1>
+          <p class="hdc-hero-sub">{{ t.hero.sub }}</p>
+          <div class="hdc-hero-actions">
+            <button onClick="{{ goDonate }}" class="btn btn-primary hdc-btn-hero-donate">{{ t.hero.ctaDonate }}
+              <svg class="hdc-icon-inline-ml" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </button>
+            <button onClick="{{ goAdopt }}" class="btn hdc-btn-outline-white">{{ t.hero.ctaAdopt }}</button>
+          </div>
+          <div class="hdc-hero-meta-row">
+            <div class="hdc-hero-dots-row">
+              <sc-for list="{{ dots }}" as="d" hint-placeholder-count="5">
+                <button onClick="{{ d.onClick }}" aria-label="slide" style="{{ d.style }}"></button>
+              </sc-for>
+            </div>
+            <span class="hdc-hero-caption">{{ activeCaption }}</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="hdc-section-pad-md">
+        <div class="hdc-container-lg">
+          <span class="hdc-kicker-label">{{ t.impact.kicker }}</span>
+          <h2 class="hdc-impact-title">{{ t.impact.title }}</h2>
+          <div class="hdc-impact-grid">
+            <sc-for list="{{ t.impact.stats }}" as="stat" hint-placeholder-count="3">
+              <div class="hdc-stat-item">
+                <div class="hdc-stat-number">{{ stat.n }}</div>
+                <div class="hdc-stat-label">{{ stat.l }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <section class="hdc-section-pad-lg">
+        <div class="hdc-grid-2col-center">
+          <div>
+            <span class="hdc-kicker-label-mb12">{{ t.aboutTeaser.kicker }}</span>
+            <h2 class="hdc-section-title-md">{{ t.aboutTeaser.title }}</h2>
+            <p class="hdc-body-copy">{{ t.aboutTeaser.body }}</p>
+            <button onClick="{{ goAbout }}" class="btn btn-secondary hdc-btn-cta-secondary">{{ t.aboutTeaser.cta }}
+              <svg class="hdc-icon-inline-ml" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </button>
+          </div>
+          <figure class="hdc-figure-4-3">
+            <img class="hdc-photo-cover" src="img/Dashboard/6.png" alt="Don Carlitos con uno de los perritos rescatados">
+          </figure>
+        </div>
+      </section>
+
+      <section class="hdc-section-pad-lg">
+        <div class="hdc-container-lg">
+          <div class="hdc-row-header">
+            <div>
+              <span class="hdc-kicker-label">{{ t.featured.kicker }}</span>
+              <h2 class="hdc-section-title-flush">{{ t.featured.title }}</h2>
+            </div>
+            <button onClick="{{ goAdopt }}" class="hdc-link hdc-link-cta">{{ t.featured.cta }}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </button>
+          </div>
+          <div class="hdc-cards-grid-featured">
+            <sc-for list="{{ featuredDogs }}" as="dog" hint-placeholder-count="3">
+              <article class="hdc-card hdc-dog-card">
+                <figure class="hdc-dog-card-photo-4-3">
+                  <img class="hdc-photo-cover" src="{{ dog.photo }}" alt="{{ dog.name }}">
+                </figure>
+                <div class="hdc-dog-card-body">
+                  <div class="hdc-row-baseline">
+                    <h3 class="hdc-dog-name-sm">{{ dog.name }}</h3>
+                    <span class="hdc-dog-meta">{{ dog.meta }}</span>
+                  </div>
+                  <p class="hdc-dog-desc">{{ dog.personality }}</p>
+                  <a href="{{ dog.link }}" target="_blank" rel="noopener" class="btn btn-primary hdc-btn-dog-cta">{{ t.adopt.request }}</a>
+                </div>
+              </article>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+      <section class="hdc-poster-band">
+        <div class="hdc-container-md">
+          <h2 class="hdc-poster-title">{{ t.poster.title }}</h2>
+          <p class="hdc-poster-sub">{{ t.poster.sub }}</p>
+          <div class="hdc-poster-actions">
+            <a href="{{ waContactHref }}" target="_blank" rel="noopener" class="btn hdc-btn-white">{{ t.poster.ctaDonate }}</a>
+            <button onClick="{{ goContact }}" class="btn hdc-btn-outline-white">{{ t.poster.ctaContact }}</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </sc-if>
+
+  <!-- ========================= QUIENES SOMOS ========================= -->
+  <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <section class="hdc-page-header">
+        <div class="hdc-container-md">
+          <span class="hdc-page-kicker">{{ t.about.kicker }}</span>
+          <h1 class="hdc-page-title">{{ t.about.title }}</h1>
+          <p class="hdc-page-lead-58">{{ t.about.lead }}</p>
+        </div>
+      </section>
+      <section class="hdc-section-pad-story">
+        <div class="hdc-grid-2col-center">
+          <figure class="hdc-figure-4-5">
+            <img class="hdc-photo-cover" src="img/Dashboard/7.jpeg" alt="Don Carlitos saludando a uno de los perritos rescatados">
+          </figure>
+          <div>
+            <h2 class="hdc-story-title">{{ t.about.storyTitle }}</h2>
+            <p class="hdc-story-para">{{ t.about.story1 }}</p>
+            <p class="hdc-story-para-tight">{{ t.about.story2 }}</p>
+            <p class="hdc-story-quote">{{ t.about.story3 }}</p>
+          </div>
+        </div>
+      </section>
+      <section class="hdc-section-pad-story">
+        <div class="hdc-container-lg">
+          <h2 class="hdc-values-title">{{ t.about.valuesTitle }}</h2>
+          <div class="hdc-values-grid">
+            <sc-for list="{{ t.about.values }}" as="v" hint-placeholder-count="3">
+              <div class="hdc-value-item">
+                <h3 class="hdc-value-item-title">{{ v.t }}</h3>
+                <p class="hdc-value-item-desc">{{ v.d }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+      <section class="hdc-poster-band">
+        <div class="hdc-container-md">
+          <h2 class="hdc-poster-title">{{ t.poster.title }}</h2>
+          <p class="hdc-poster-sub">{{ t.poster.sub }}</p>
+          <div class="hdc-poster-actions">
+            <a href="{{ waContactHref }}" target="_blank" rel="noopener" class="btn hdc-btn-white">{{ t.poster.ctaDonate }}</a>
+            <button onClick="{{ goContact }}" class="btn hdc-btn-outline-white">{{ t.poster.ctaContact }}</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </sc-if>
+
+  <!-- =========================== ADOPCIONES =========================== -->
+  <sc-if value="{{ isAdopt }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <section class="hdc-page-header-compact">
+        <div class="hdc-container-lg">
+          <span class="hdc-page-kicker">{{ t.adopt.kicker }}</span>
+          <h1 class="hdc-page-title">{{ t.adopt.title }}</h1>
+          <p class="hdc-page-lead-56">{{ t.adopt.lead }}</p>
+        </div>
+      </section>
+      <section class="hdc-section-pad-list">
+        <div class="hdc-adopt-grid">
+          <sc-for list="{{ dogs }}" as="dog" hint-placeholder-count="10">
+            <article class="hdc-card hdc-dog-card">
+              <figure class="hdc-dog-card-photo-square">
+                <img class="hdc-photo-cover" src="{{ dog.photo }}" alt="{{ dog.name }}">
+              </figure>
+              <div class="hdc-dog-card-body-adopt">
+                <div class="hdc-row-baseline">
+                  <h3 class="hdc-dog-name">{{ dog.name }}</h3>
+                  <span class="hdc-dog-meta-right">{{ dog.meta }}</span>
+                </div>
+                <p class="hdc-dog-desc-adopt">{{ dog.personality }}</p>
+                <div class="hdc-dog-health-row">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                  {{ dog.health }}
+                </div>
+                <a href="{{ dog.link }}" target="_blank" rel="noopener" class="btn btn-primary hdc-btn-dog-cta-adopt">{{ t.adopt.request }}
+                  <svg class="hdc-icon-ml-auto" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                </a>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+        <div class="hdc-adopt-note-wrap">
+          <p class="hdc-adopt-note-text">{{ t.adopt.note }}</p>
+        </div>
+      </section>
+    </div>
+  </sc-if>
+
+  <!-- ============================ DONACION ============================ -->
+  <sc-if value="{{ isDonate }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <section class="hdc-page-header-compact">
+        <div class="hdc-container-md">
+          <span class="hdc-page-kicker">{{ t.donate.kicker }}</span>
+          <h1 class="hdc-page-title-narrow">{{ t.donate.title }}</h1>
+          <p class="hdc-page-lead-donate">{{ t.donate.lead }}</p>
+        </div>
+      </section>
+      <section class="hdc-section-pad-md">
+        <div class="hdc-donate-grid">
+
+          <div class="hdc-donate-card-emphasis">
+            <div class="hdc-donate-card-head-dark">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="1"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>
+              <h3 class="hdc-donate-card-head-title">{{ t.donate.bank.title }}</h3>
+            </div>
+            <div class="hdc-donate-card-body">
+              <p class="hdc-muted-copy">{{ t.donate.bank.body }}</p>
+              <sc-for list="{{ t.donate.bank.rows }}" as="r" hint-placeholder-count="4">
+                <div class="hdc-bank-row">
+                  <span class="hdc-bank-row-label">{{ r.k }}</span>
+                  <span class="hdc-bank-row-value">{{ r.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div class="hdc-donate-card">
+            <div class="hdc-donate-card-head">
+              <span class="hdc-icon-accent"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"></rect><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8S13 3 16.5 3a2.5 2.5 0 0 1 0 5"></path></svg></span>
+              <h3 class="hdc-donate-card-title">{{ t.donate.kind.title }}</h3>
+            </div>
+            <div class="hdc-donate-card-body-tight">
+              <p class="hdc-muted-copy">{{ t.donate.kind.body }}</p>
+              <div class="hdc-stack-10">
+                <sc-for list="{{ t.donate.kind.items }}" as="it" hint-placeholder-count="4">
+                  <div class="hdc-kind-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                    {{ it }}
+                  </div>
+                </sc-for>
+              </div>
+              <a href="{{ waKindHref }}" target="_blank" rel="noopener" class="btn btn-secondary hdc-btn-kind-cta">{{ t.donate.kind.cta }}</a>
+            </div>
+          </div>
+
+          <div class="hdc-donate-card">
+            <div class="hdc-donate-card-head">
+              <span class="hdc-icon-accent"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 14h2a2 2 0 0 0 2-2 2 2 0 0 0-2-2h-3c-.6 0-1.1.2-1.4.6L3 16"></path><path d="m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"></path><path d="m2 15 6 6"></path><path d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.7 2.7 0 0 0 16 4a2.7 2.7 0 0 0-5 1.8c0 1.1.8 2 1.5 2.7L16 12z"></path></svg></span>
+              <h3 class="hdc-donate-card-title">{{ t.donate.sponsor.title }}</h3>
+            </div>
+            <div class="hdc-donate-card-body">
+              <p class="hdc-muted-copy">{{ t.donate.sponsor.body }}</p>
+              <div class="hdc-stack-10">
+                <sc-for list="{{ sponsorTiers }}" as="tier" hint-placeholder-count="3">
+                  <a href="{{ tier.href }}" target="_blank" rel="noopener" class="hdc-card hdc-sponsor-tier">
+                    <span><span class="hdc-sponsor-amount">{{ tier.amount }}</span><span class="hdc-sponsor-label">{{ tier.label }}</span></span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                  </a>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+      <section class="hdc-poster-band">
+        <div class="hdc-container-md">
+          <h2 class="hdc-poster-title">{{ t.poster.title }}</h2>
+          <p class="hdc-poster-sub">{{ t.poster.sub }}</p>
+          <div class="hdc-poster-actions">
+            <a href="{{ waContactHref }}" target="_blank" rel="noopener" class="btn hdc-btn-white">{{ t.poster.ctaDonate }}</a>
+            <button onClick="{{ goContact }}" class="btn hdc-btn-outline-white">{{ t.poster.ctaContact }}</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </sc-if>
+
+  <!-- =========================== CONTACTANOS =========================== -->
+  <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <section class="hdc-page-header-compact">
+        <div class="hdc-container-md">
+          <span class="hdc-page-kicker">{{ t.contact.kicker }}</span>
+          <h1 class="hdc-page-title-narrow">{{ t.contact.title }}</h1>
+          <p class="hdc-page-lead-contact">{{ t.contact.lead }}</p>
+        </div>
+      </section>
+      <section class="hdc-section-pad-md">
+        <div class="hdc-contact-grid">
+          <div class="hdc-contact-col">
+            <a href="{{ waContactHref }}" target="_blank" rel="noopener" class="hdc-card hdc-contact-card">
+              <span class="hdc-contact-icon-accent"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.13c-.24.68-1.42 1.32-1.95 1.36-.5.04-.5.4-3.16-.66-2.66-1.05-4.34-3.75-4.47-3.92-.13-.18-1.07-1.42-1.07-2.71s.68-1.92.92-2.19c.24-.26.53-.33.7-.33.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.57.8 1.98.87 2.12.07.13.12.29.02.47-.09.18-.14.29-.27.44-.13.15-.28.34-.4.45-.13.13-.27.28-.12.54.16.26.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.17 1.34.26.13.42.11.57-.07.15-.18.66-.77.83-1.03.18-.26.35-.22.59-.13.24.09 1.52.72 1.78.85.26.13.44.2.5.31.06.11.06.63-.18 1.31z"></path></svg></span>
+              <span><span class="hdc-contact-label">WhatsApp</span><span class="hdc-contact-value">+57 318 856 7400</span></span>
+            </a>
+            <a href="https://www.instagram.com/hogardoncarlitos" target="_blank" rel="noopener" class="hdc-card hdc-contact-card">
+              <span class="hdc-contact-icon-dark"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><path d="M17.5 6.5h.01"></path></svg></span>
+              <span><span class="hdc-contact-label">Instagram</span><span class="hdc-contact-value">@hogardoncarlitos</span></span>
+            </a>
+            <div class="hdc-contact-loc-row">
+              <span class="hdc-contact-icon-outline"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.4-8 12-8 12s-8-7.6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
+              <span><span class="hdc-contact-label">{{ t.contact.locLabel }}</span><span class="hdc-contact-loc-value">{{ t.contact.locValue }}</span></span>
+            </div>
+          </div>
+          <div class="hdc-contact-form">
+            <h2 class="hdc-contact-form-title">{{ t.contact.formTitle }}</h2>
+            <p class="hdc-contact-form-sub">{{ t.contact.formSub }}</p>
+            <div class="hdc-contact-form-fields">
+              <label class="hdc-field-wrap">
+                <span class="hdc-field-label">{{ t.contact.fName }}</span>
+                <input class="input hdc-field-input" value="{{ formName }}" onInput="{{ onName }}" placeholder="{{ t.contact.phName }}">
+              </label>
+              <label class="hdc-field-wrap">
+                <span class="hdc-field-label">{{ t.contact.fMsg }}</span>
+                <textarea class="input hdc-field-textarea" value="{{ formMsg }}" onInput="{{ onMsg }}" rows="4" placeholder="{{ t.contact.phMsg }}"></textarea>
+              </label>
+              <a href="{{ contactSubmitHref }}" target="_blank" rel="noopener" class="btn btn-primary hdc-btn-contact-submit">{{ t.contact.send }}
+                <svg class="hdc-icon-ml-10" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </sc-if>
+
+  <!-- ============================= FOOTER ============================= -->
+  <footer class="hdc-footer">
+    <div class="hdc-footer-grid">
+      <div>
+        <div class="hdc-footer-brand-row">
+          <span class="hdc-icon-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="2"></circle><circle cx="18" cy="8" r="2"></circle><circle cx="20" cy="16" r="2"></circle><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"></path></svg></span>
+          <span class="hdc-footer-brand-title">Hogar Don Carlitos</span>
+        </div>
+        <p class="hdc-footer-tagline">{{ t.footer.tagline }}</p>
+      </div>
+      <div>
+        <h4 class="hdc-footer-col-title">{{ t.footer.navTitle }}</h4>
+        <div class="hdc-footer-nav-list">
+          <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="4">
+            <button class="hdc-footer-nav-link" onClick="{{ item.onClick }}">{{ item.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <h4 class="hdc-footer-col-title">{{ t.footer.followTitle }}</h4>
+        <div class="hdc-footer-social-row">
+          <a class="hdc-footer-social-link" href="https://www.instagram.com/hogardoncarlitos" target="_blank" rel="noopener" aria-label="Instagram"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><path d="M17.5 6.5h.01"></path></svg></a>
+          <a class="hdc-footer-social-link" href="{{ waContactHref }}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.13c-.24.68-1.42 1.32-1.95 1.36-.5.04-.5.4-3.16-.66-2.66-1.05-4.34-3.75-4.47-3.92-.13-.18-1.07-1.42-1.07-2.71s.68-1.92.92-2.19c.24-.26.53-.33.7-.33.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.57.8 1.98.87 2.12.07.13.12.29.02.47-.09.18-.14.29-.27.44-.13.15-.28.34-.4.45-.13.13-.27.28-.12.54.16.26.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.17 1.34.26.13.42.11.57-.07.15-.18.66-.77.83-1.03.18-.26.35-.22.59-.13.24.09 1.52.72 1.78.85.26.13.44.2.5.31.06.11.06.63-.18 1.31z"></path></svg></a>
+        </div>
+        <button onClick="{{ goDonate }}" class="btn btn-primary hdc-btn-footer-donate">{{ t.nav.donate }}</button>
+      </div>
+    </div>
+    <div class="hdc-footer-bottom">© {{ year }} Hogar Don Carlitos · {{ t.footer.rights }}</div>
+  </footer>
+
+</div>
+</x-dc>
+<!-- Lógica de la app: estado, traducciones (es/en), datos de los perritos y navegación. -->
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;es&quot;,&quot;en&quot;],&quot;default&quot;:&quot;es&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Idioma&quot;},&quot;carouselSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:5,&quot;min&quot;:2,&quot;max&quot;:8,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Carrusel&quot;},&quot;whatsapp&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;573188567400&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contacto&quot;}}">
+// Componente raíz. Guarda el estado de la app (página activa, idioma, slide del
+// carrusel, menú móvil, formulario de contacto) y expone en renderVals() los
+// datos que consume el marcado {{ }} / sc-if / sc-for de arriba.
+class Component extends DCLogic {
+  // Estado inicial: página "inicio", idioma según la prop defaultLang, carrusel
+  // en el slide 0, menú cerrado, formulario de contacto vacío.
+  constructor(props) {
+    super(props);
+    this.state = { page: 'inicio', lang: (props.defaultLang === 'en' ? 'en' : 'es'), slide: 0, isMobile: false, menuOpen: false, formName: '', formMsg: '' };
+    this._slideCount = 5;
+  }
+  // Al montar: arranca el temporizador del carrusel (avanza de slide cada
+  // carouselSeconds segundos) y detecta si la pantalla es móvil (<900px) para
+  // decidir entre menú de escritorio o menú móvil.
+  componentDidMount() {
+    const secs = Number(this.props.carouselSeconds) || 4.5;
+    this._timer = setInterval(() => this.setState(s => ({ slide: (s.slide + 1) % this._slideCount })), secs * 1000);
+    this._onResize = () => this.setState({ isMobile: window.innerWidth < 900 });
+    this._onResize();
+    window.addEventListener('resize', this._onResize);
+  }
+  // Limpieza al desmontar: detiene el temporizador del carrusel y quita el
+  // listener de resize para no dejar fugas de memoria.
+  componentWillUnmount() {
+    clearInterval(this._timer);
+    window.removeEventListener('resize', this._onResize);
+  }
+  // Número de WhatsApp del refugio (prop "whatsapp"), limpio de todo lo que no sea dígito.
+  waNum() { return String(this.props.whatsapp || '573188567400').replace(/[^0-9]/g, ''); }
+  // Arma un link wa.me hacia ese número, con "msg" precargado como texto del mensaje.
+  wa(msg) { return 'https://wa.me/' + this.waNum() + (msg ? ('?text=' + encodeURIComponent(msg)) : ''); }
+  // Devuelve un manejador de click que cambia de página, cierra el menú móvil y sube el scroll arriba.
+  go(page) { return () => { this.setState({ page, menuOpen: false }); if (typeof window !== 'undefined') window.scrollTo(0, 0); }; }
+
+  // Todos los textos del sitio, en español e inglés, bajo las mismas claves.
+  // renderVals() usa data()[this.state.lang] según el idioma activo.
+  data() {
+    return {
+      es: {
+        brandTag: 'Fundación animal',
+        switchTo: 'Ver en inglés (English)',
+        langOther: 'EN',
+        nav: { home: 'Inicio', about: '¿Quiénes somos?', adopt: 'Adopciones', contact: 'Contáctanos', donate: 'Donar' },
+        hero: {
+          kicker: 'Ayúdame a encontrar un hogar',
+          title: 'Hola… ¿serías tú mi familia?',
+          sub: 'Soy uno de los peluditos que espera en el Hogar Don Carlitos. Con tu ayuda tengo comida, un techo calientito y la oportunidad de encontrar un hogar para siempre.',
+          ctaDonate: 'Quiero ayudar',
+          ctaAdopt: 'Conóceme',
+          welcomeBubble: 'Hola, te doy la bienvenida a la página de Hogar Don Carlitos',
+          captions: [
+            'Me rescataron de la calle un día de lluvia'
+          ]
+        },
+        impact: {
+          kicker: 'Lo que logramos juntos',
+          title: 'Cada rescate empieza con alguien que decidió no mirar hacia otro lado',
+          stats: [
+            { n: '15', l: 'Años abriendo la puerta a los que nadie quiso' },
+            { n: '31', l: 'Peluditos que hoy esperan una familia' },
+            { n: '8', l: 'Perritos con los que empezó esta historia' }
+          ]
+        },
+        aboutTeaser: {
+          kicker: 'Quiénes nos cuidan',
+          title: 'Quince años haciendo hogar',
+          body: 'Esto empezó en una casa, con ocho perritos y muchas ganas de ayudar. Quince años después seguimos rescatando a los más vulnerables: los curamos, los esterilizamos, los vacunamos y los acompañamos hasta que llega su familia. Todo es posible gracias a personas de buen corazón como tú.',
+          cta: 'Conoce nuestra historia'
+        },
+        featured: {
+          kicker: 'Buscan hogar',
+          title: 'Ellos ya están listos para quererte',
+          cta: 'Ver todos'
+        },
+        about: {
+          kicker: '¿Quiénes somos?',
+          title: 'Somos la voz de los que no pueden pedir ayuda',
+          lead: 'El refugio de los peluditos nació hace 15 años. Todo empezó en casa, cuidando a cinco perros cazadores y a los tres que ya eran míos. Nunca imaginé hasta dónde nos llevaría ese primer gesto.',
+          storyTitle: 'Cómo empezó todo',
+          story1: 'Con el tiempo nos dimos a la tarea de salir a rescatar a los más vulnerables: los curamos, los esterilizamos, los vacunamos y les dimos un lugar seguro donde volver a empezar. Cada rescate nos enseñó algo nuevo sobre lo que un perrito puede resistir y perdonar.',
+          story2: 'Hoy esto es un sitio lleno de amor. Cada peludito llega con una historia a cuestas y esas experiencias les dieron una personalidad propia, inconfundible. Después de conocerlos, ya es imposible desistir de ayudarlos: por eso seguimos aquí, un día más, por cada uno de ellos.',
+          story3: 'En este momento hay 31 integrantes en el refugio esperando por una familia que los quiera.',
+          valuesTitle: 'Lo que nos mueve',
+          values: [
+            { t: 'Amor sin condiciones', d: 'Cada perrito recibe cariño, paciencia y el tiempo que necesita para sanar.' },
+            { t: 'Transparencia total', d: 'Cada donación se destina al cuidado directo de los animalitos. Sin intermediarios.' },
+            { t: 'Adopción responsable', d: 'Buscamos hogares que entiendan que adoptar es un compromiso de por vida.' }
+          ]
+        },
+        adopt: {
+          kicker: 'Adopciones',
+          title: 'Ellos ya te están esperando',
+          lead: 'Estos son algunos de nuestros peluditos que buscan un hogar. Todos están desparasitados y en proceso de vacunación y esterilización. Si alguno robó tu corazón, escríbenos por WhatsApp y te contamos cómo adoptarlo.',
+          request: 'Solicitar adopción',
+          note: 'Adoptar es gratis, pero implica una entrevista y compromiso responsable. ¿Aún no puedes adoptar? También puedes apadrinar a un perrito o ayudarnos como hogar de paso.',
+          waMsg: (name) => '¡Hola Hogar Don Carlitos! Me interesa adoptar a ' + name + '. ¿Me cuentan cómo es el proceso?'
+        },
+        donate: {
+          kicker: 'Donaciones',
+          title: 'Con muy poquito, les cambias la vida',
+          lead: 'Tu ayuda se convierte en comida, medicinas y un lugar seguro para dormir. Elige la forma de apoyar que más te acomode: cada aporte cuenta y llega directo a los peluditos.',
+          bank: {
+            title: 'Transferencia bancaria',
+            body: 'Haz tu donación directamente a nuestra cuenta. (Reemplaza estos datos por los de la fundación.)',
+            rows: [
+              { k: 'Banco', v: 'Bancolombia' },
+              { k: 'Tipo de cuenta', v: 'Ahorros' },
+              { k: 'Número', v: '000-000000-00' },
+              { k: 'Titular', v: 'Fundación Hogar Don Carlitos' }
+            ]
+          },
+          kind: {
+            title: 'Donación en especie',
+            body: 'También necesitamos insumos para el día a día del refugio:',
+            items: ['Concentrado para perro', 'Medicinas y desparasitantes', 'Cobijas y camas', 'Correas, platos y juguetes'],
+            cta: 'Coordinar entrega por WhatsApp'
+          },
+          sponsor: {
+            title: 'Apadrina un peludito',
+            body: 'Con un aporte mensual sostienes el cuidado de un perrito hasta que encuentre su hogar.',
+            waMsg: (amt) => '¡Hola! Quiero apadrinar a un peludito con un aporte mensual de ' + amt + '. ¿Cómo lo hago?'
+          }
+        },
+        contact: {
+          kicker: 'Contáctanos',
+          title: 'Estamos a un mensaje de distancia',
+          lead: 'Escríbenos para adoptar, donar, ser voluntario o resolver cualquier duda. Nos encanta saber de personas que quieren ayudar.',
+          locLabel: 'Ubicación',
+          locValue: 'Colombia · A convenir',
+          formTitle: 'Escríbenos',
+          formSub: 'Cuéntanos cómo quieres ayudar y te responderemos por WhatsApp.',
+          fName: 'Tu nombre',
+          phName: '¿Cómo te llamas?',
+          fMsg: 'Mensaje',
+          phMsg: 'Quiero adoptar / donar / ser voluntario…',
+          send: 'Enviar por WhatsApp',
+          waMsg: (n, m) => '¡Hola Hogar Don Carlitos! Soy ' + (n || 'un amigo de los animalitos') + '. ' + (m || 'Quiero ayudar.')
+        },
+        poster: {
+          title: 'Hoy puedes ser el héroe de un peludito',
+          sub: 'No necesitas mucho para cambiar una vida. Una donación, una adopción o simplemente compartir nuestra página ya es un acto de amor.',
+          ctaDonate: 'Donar por WhatsApp',
+          ctaContact: 'Escríbenos'
+        },
+        footer: {
+          tagline: 'Rescatamos, cuidamos y buscamos hogar para perritos abandonados. Gracias por ser parte de su historia.',
+          navTitle: 'Navegación',
+          followTitle: 'Síguenos',
+          rights: 'Hecho con amor por los animalitos.'
+        }
+      },
+      en: {
+        brandTag: 'Animal foundation',
+        switchTo: 'Ver en español (Spanish)',
+        langOther: 'ES',
+        nav: { home: 'Home', about: 'About us', adopt: 'Adoptions', contact: 'Contact', donate: 'Donate' },
+        hero: {
+          kicker: 'Help me find a home',
+          title: 'Hi… could you be my family?',
+          sub: "I'm one of the little ones waiting at Hogar Don Carlitos. With your help I get food, a warm place to sleep, and the chance to find a forever home.",
+          ctaDonate: 'I want to help',
+          ctaAdopt: 'Meet me',
+          welcomeBubble: 'Hi, welcome to the Hogar Don Carlitos page',
+          captions: [
+            'They rescued me from the street on a rainy day'
+          ]
+        },
+        impact: {
+          kicker: 'What we achieve together',
+          title: 'Every rescue starts with someone who chose not to look away',
+          stats: [
+            { n: '15', l: 'Years opening the door to those nobody wanted' },
+            { n: '31', l: 'Little ones waiting today for a family' },
+            { n: '8', l: 'Dogs this whole story began with' }
+          ]
+        },
+        aboutTeaser: {
+          kicker: 'Who cares for us',
+          title: 'Fifteen years making a home',
+          body: 'This began in a house, with eight dogs and a strong wish to help. Fifteen years later we still rescue the most vulnerable ones: we heal them, spay and neuter them, vaccinate them, and stay with them until their family arrives. All of it is possible thanks to kind-hearted people like you.',
+          cta: 'Read our story'
+        },
+        featured: {
+          kicker: 'Looking for a home',
+          title: "They're ready to love you already",
+          cta: 'See all'
+        },
+        about: {
+          kicker: 'About us',
+          title: 'We are the voice of those who cannot ask for help',
+          lead: 'The shelter was born 15 years ago. It all started at home, caring for five hunting dogs and the three that were already mine. I never imagined how far that first gesture would take us.',
+          storyTitle: 'How it all began',
+          story1: 'Over time we set out to rescue the most vulnerable ones: we healed them, spayed and neutered them, vaccinated them, and gave them a safe place to start over. Every rescue taught us something new about what a dog can endure and forgive.',
+          story2: 'Today this is a place full of love. Every little one arrives carrying a story, and those experiences gave each of them their own unmistakable personality. Once you know them, giving up on them is simply not possible — that is why we are still here, one more day, for every single one.',
+          story3: 'Right now there are 31 members at the shelter waiting for a family to love them.',
+          valuesTitle: 'What drives us',
+          values: [
+            { t: 'Unconditional love', d: 'Every dog receives affection, patience and the time it needs to heal.' },
+            { t: 'Full transparency', d: 'Every donation goes to the direct care of the animals. No middlemen.' },
+            { t: 'Responsible adoption', d: 'We look for homes that understand adopting is a lifelong commitment.' }
+          ]
+        },
+        adopt: {
+          kicker: 'Adoptions',
+          title: "They're already waiting for you",
+          lead: 'These are some of our little ones looking for a home. All are dewormed and in the process of vaccination and neutering. If one steals your heart, message us on WhatsApp and we will tell you how to adopt.',
+          request: 'Request adoption',
+          note: 'Adoption is free, but involves an interview and a responsible commitment. Not ready to adopt yet? You can also sponsor a dog or help us as a foster home.',
+          waMsg: (name) => 'Hi Hogar Don Carlitos! I would like to adopt ' + name + '. Could you tell me about the process?'
+        },
+        donate: {
+          kicker: 'Donations',
+          title: 'With just a little, you change their lives',
+          lead: 'Your help becomes food, medicine and a safe place to sleep. Choose the way to support that suits you best: every contribution counts and goes straight to the little ones.',
+          bank: {
+            title: 'Bank transfer',
+            body: 'Make your donation directly to our account. (Replace these details with the foundation\u2019s.)',
+            rows: [
+              { k: 'Bank', v: 'Bancolombia' },
+              { k: 'Account type', v: 'Savings' },
+              { k: 'Number', v: '000-000000-00' },
+              { k: 'Holder', v: 'Fundación Hogar Don Carlitos' }
+            ]
+          },
+          kind: {
+            title: 'In-kind donation',
+            body: 'We also need supplies for the shelter\u2019s daily life:',
+            items: ['Dog food', 'Medicine and dewormers', 'Blankets and beds', 'Leashes, bowls and toys'],
+            cta: 'Arrange drop-off via WhatsApp'
+          },
+          sponsor: {
+            title: 'Sponsor a dog',
+            body: 'With a monthly contribution you sustain the care of a dog until it finds its home.',
+            waMsg: (amt) => 'Hi! I want to sponsor a dog with a monthly contribution of ' + amt + '. How do I do it?'
+          }
+        },
+        contact: {
+          kicker: 'Contact',
+          title: "We're just one message away",
+          lead: 'Write to us to adopt, donate, volunteer or ask anything. We love hearing from people who want to help.',
+          locLabel: 'Location',
+          locValue: 'Colombia · By arrangement',
+          formTitle: 'Write to us',
+          formSub: 'Tell us how you want to help and we will reply on WhatsApp.',
+          fName: 'Your name',
+          phName: 'What is your name?',
+          fMsg: 'Message',
+          phMsg: 'I want to adopt / donate / volunteer…',
+          send: 'Send via WhatsApp',
+          waMsg: (n, m) => 'Hi Hogar Don Carlitos! I\u2019m ' + (n || 'a friend of the animals') + '. ' + (m || 'I want to help.')
+        },
+        poster: {
+          title: 'Today you can be a little dog\u2019s hero',
+          sub: 'You don\u2019t need much to change a life. A donation, an adoption, or simply sharing our page is already an act of love.',
+          ctaDonate: 'Donate via WhatsApp',
+          ctaContact: 'Write to us'
+        },
+        footer: {
+          tagline: 'We rescue, care for and find homes for abandoned dogs. Thank you for being part of their story.',
+          navTitle: 'Navigation',
+          followTitle: 'Follow us',
+          rights: 'Made with love for the animals.'
+        }
+      }
+    };
+  }
+
+  // Los 10 perritos en adopción (datos fijos): nombre, edad/tamaño, personalidad
+  // y estado de salud, en español e inglés.
+  dogsData() {
+    return [
+      { id: 'flor',  photo: 'img/28.jpeg', es: { n: 'Flor',  meta: '3 años · Mediana',   p: 'Cariñosa hasta el último pelo; su energía contagiosa convierte cualquier día malo en uno bueno.', h: 'Vacunas al día, esterilizada y desparacitada' }, en: { n: 'Flor',  meta: '3 yrs · Medium', p: 'Affectionate to her core; her contagious energy turns any bad day into a good one.', h: 'Up to date on vaccines, spayed, and dewormed' } },
+      { id: 'terron',photo: 'img/20-face.jpeg', es: { n: 'Terrón',   meta: '1 año · Mediano',p: 'Juguetón y leal hasta la médula; busca una familia activa con quien compartir cada paseo y cada aventura.', h: 'Vacunas al día, esterilizado y desparacitado' }, en: { n: 'Terrón',   meta: '1 yr · Medium', p: 'Playful and loyal to the bone; looking for an active family to share every walk and adventure with.', h: 'Up to date on vaccines, neutered, and dewormed' } },
+      { id: 'apolo', photo: 'img/3.jpeg',  es: { n: 'Apolo', meta: '1 año · Mediano',    p: 'Sabio y sereno, aunque un poco tímido al principio; gánate su confianza y tendrás una sombra fiel de por vida.', h: 'Vacunas al día, esterilizado y desparacitado' }, en: { n: 'Apolo', meta: '1 yr · Medium', p: "Wise and calm, though a little shy at first; earn his trust and you'll have a loyal shadow for life.", h: 'Up to date on vaccines, neutered, and dewormed' } },
+      { id: 'isa', photo: 'img/15.jpeg', es: { n: 'Isa', meta: '2 años · Grande',    p: 'Tranquila y protectora; sigo esperando una segunda oportunidad real, un lugar donde realmente sea parte de la familia para siempre y no me vuelvan a abandonar.', h: 'Vacunas al día, esterilizada y desparacitada' }, en: { n: 'Isa', meta: '2 yrs · Large', p: "Calm and protective; she's still waiting for a real second chance—a place where she can truly be part of the family forever and never be abandoned again.", h: 'Up to date on vaccines, spayed, and dewormed' } },
+      { id: 'peluchina',  photo: 'img/5-face.jpeg',  es: { n: 'Peluchina',  meta: '3 años · Mediana',   p: 'A veces puedo ser un poco desconfiada, debido a mi limitada visión y a una experiencia pasada en la que sufrí una quemadura en mis ojos. Sin embargo, soy una muy buena compañía y muy amorosa.', h: 'Vacunas al día, esterilizada y desparacitada' }, en: { n: 'Peluchina',  meta: '3 yrs · Medium', p: "She can sometimes be a bit wary, due to her limited vision and a past experience in which she suffered a burn to her eyes. Even so, she's wonderful company and very affectionate.", h: 'Up to date on vaccines, spayed, and dewormed' } },
+      { id: 'luna', photo: 'img/34.jpeg', es: { n: 'Luna Barcina', meta: '2 años · Mediana',  p: 'Tranquila y juiciosa; soy el equilibrio perfecto entre elevar la energía y cuidarte con mi tranquilidad y mi amor.', h: 'Vacunas al día, esterilizada y desparacitada' }, en: { n: 'Luna Barcina', meta: '2 yrs · Medium', p: 'Calm and composed; the perfect balance between lifting your energy and looking after you with her calmness and love.', h: 'Up to date on vaccines, spayed, and dewormed' } },
+      { id: 'sombra', photo: 'img/35.jpeg', es: { n: 'Sombra', meta: '5 años · Grande',   p: 'Estuve al borde de ser sacrificada, pero la vida me dio otra oportunidad. Soy sumamente juiciosa, amorosa y con un instinto protector hermoso para cuidarte a ti y a los tuyos. Busco una familia que lo valore y me llene de cariño para siempre.', h: 'Vacunas al día, esterilizada y desparacitada' }, en: { n: 'Sombra', meta: '5 yrs · Large', p: 'She was on the verge of being put down, but life gave her another chance. She is extremely composed, loving, and has a beautiful protective instinct to look after you and your loved ones. She is looking for a family that will value that and fill her with love forever.', h: 'Up to date on vaccines, spayed, and dewormed' } },
+      { id: 'mono',  photo: 'img/6.jpeg',  es: { n: 'Mono Dani',  meta: '6 años · Mediano',   p: 'Aventurero y sociable; Me encanta explorar, conocer gente nueva. Llevo 3 años en el refugio de Don Carlitos a la espera de una oportunidad.', h: 'Vacunas al día, esterilizado y desparacitado' }, en: { n: 'Mono Dani',  meta: '6 yrs · Medium', p: "Adventurous and sociable; he loves exploring and meeting new people. He's been at the Don Carlitos shelter for 3 years, waiting for his chance.", h: 'Up to date on vaccines, neutered, and dewormed' } },
+      { id: 'toby ',  photo: 'img/21.jpeg', es: { n: 'Toby',  meta: '2 año · Pequeño',    p: 'Mimoso de corazón; busco un regazo donde quedarme dormido porque soy de esos compañeros ideales que transmiten una paz y armonía incomparables a cualquier hogar, adaptándome perfectamente a la rutina de la familia.', h: 'Vacunas al día, esterilizado y desparacitado' }, en: { n: 'Toby',  meta: '2 yrs · Small', p: "A cuddler at heart; he's looking for a lap to fall asleep on, because he's the kind of companion who brings incomparable peace and harmony to any home, fitting perfectly into the family's routine.", h: 'Up to date on vaccines, neutered, and dewormed' } },
+      { id: 'canela',photo: 'img/10.jpeg', es: { n: 'Paco',meta: '1 año · Pequeña',    p: 'Pura energía y dulzura en un solo paquete; vive para jugar, corretear y llenarte de mimos.', h: 'Vacunas al día, esterilizada y desparacitada' }, en: { n: 'Paco', meta: '1 yr · Small', p: 'Pure energy and sweetness in one package; she lives to play, run around, and shower you with love.', h: 'Up to date on vaccines, spayed, and dewormed' } }
+    ];
+  }
+
+  // Se ejecuta en cada render: arma, a partir del estado y de data()/dogsData(),
+  // el objeto de valores que consume el marcado ({{ }}, sc-if, sc-for) de index.html.
+  renderVals() {
+    const lang = this.state.lang;
+    const t = this.data()[lang];
+    const page = this.state.page;
+
+    // Ítems del menú (nav de escritorio, menú móvil y footer). El estilo de cada
+    // botón (item.style / item.mobileStyle) se calcula aquí para resaltar la página activa.
+    const navDefs = [
+      { key: 'inicio', label: t.nav.home },
+      { key: 'nosotros', label: t.nav.about },
+      { key: 'adopciones', label: t.nav.adopt },
+      { key: 'contacto', label: t.nav.contact }
+    ];
+    const navItems = navDefs.map(d => {
+      const active = d.key === page;
+      return {
+        label: d.label,
+        onClick: this.go(d.key),
+        style: 'background:none;border:0;padding:0;cursor:pointer;font-family:var(--font-heading);font-weight:700;font-size:15px;letter-spacing:-0.01em;color:' + (active ? 'var(--color-accent)' : 'var(--color-text)') + ';border-bottom:2px solid ' + (active ? 'var(--color-accent)' : 'transparent') + ';padding-bottom:2px;',
+        mobileStyle: 'text-align:left;background:none;border:0;border-top:1px solid var(--color-divider);padding:16px clamp(18px,5vw,56px);cursor:pointer;font-family:var(--font-heading);font-weight:700;font-size:16px;color:' + (active ? 'var(--color-accent)' : 'var(--color-text)') + ';'
+      };
+    });
+
+    // Slides del carrusel del hero: 1 slide de bienvenida (fotos en uploads/) + 4
+    // image-slot editables. wrapStyle usa opacity para mostrar solo el slide activo.
+    const totalSlides = 5;
+    const slides = [{
+      id: 'hero-photo-welcome', isWelcome: true, isImg1: true, isImg2: false, isImg3: false, isImg4: false,
+      wrapStyle: 'position:absolute;inset:0;opacity:' + (0 === this.state.slide ? '1' : '0') + ';transition:opacity 1.3s ease;'
+    }, {
+      id: 'hero-photo-extra', isWelcome: true, isImg1: false, isImg2: true, isImg3: false, isImg4: false,
+      wrapStyle: 'position:absolute;inset:0;opacity:' + (1 === this.state.slide ? '1' : '0') + ';transition:opacity 1.3s ease;'
+    }, {
+      id: 'hero-photo-extra2', isWelcome: true, isImg1: false, isImg2: false, isImg3: true, isImg4: false,
+      wrapStyle: 'position:absolute;inset:0;opacity:' + (2 === this.state.slide ? '1' : '0') + ';transition:opacity 1.3s ease;'
+    }, {
+      id: 'hero-photo-extra3', isWelcome: true, isImg1: false, isImg2: false, isImg3: false, isImg4: true, isImg5: false,
+      wrapStyle: 'position:absolute;inset:0;opacity:' + (3 === this.state.slide ? '1' : '0') + ';transition:opacity 1.3s ease;'
+    }, {
+      id: 'hero-photo-extra4', isWelcome: true, isImg1: false, isImg2: false, isImg3: false, isImg4: false, isImg5: true,
+      wrapStyle: 'position:absolute;inset:0;opacity:' + (4 === this.state.slide ? '1' : '0') + ';transition:opacity 1.3s ease;'
+    }];
+    // Puntos indicadores del carrusel; su estilo (ancho/color) también depende del slide activo.
+    const dots = Array.from({ length: totalSlides }, (_, i) => ({
+      onClick: () => this.setState({ slide: i }),
+      style: 'width:' + (i === this.state.slide ? '30px' : '12px') + ';height:6px;border:0;padding:0;cursor:pointer;background:' + (i === this.state.slide ? 'var(--color-accent)' : 'rgba(255,255,255,.5)') + ';transition:width .3s ease,background .3s ease;'
+    }));
+    const activeCaption = this.state.slide === 4 ? t.hero.captions[0] : '';
+    const showWelcomeBubble = this.state.slide === 0;
+
+    // Traduce dogsData() al idioma activo y arma el link de WhatsApp de "Solicitar adopción" de cada perrito.
+    const dogs = this.dogsData().map(d => {
+      const loc = d[lang];
+      return {
+        photo: d.photo,
+        name: loc.n,
+        meta: loc.meta,
+        personality: loc.p,
+        health: loc.h,
+        link: this.wa(t.adopt.waMsg(loc.n))
+      };
+    });
+    const featuredDogs = dogs.slice(0, 3);
+
+    // Niveles de apadrinamiento, cada uno con su propio link de WhatsApp prellenado.
+    const sponsorTiers = [
+      { amount: '$20.000', label: lang === 'es' ? 'Comida para un perrito' : 'Food for one dog', href: this.wa(t.donate.sponsor.waMsg('$20.000')) },
+      { amount: '$50.000', label: lang === 'es' ? 'Comida + cuidados' : 'Food + care', href: this.wa(t.donate.sponsor.waMsg('$50.000')) },
+      { amount: '$100.000', label: lang === 'es' ? 'Apadrinamiento completo' : 'Full sponsorship', href: this.wa(t.donate.sponsor.waMsg('$100.000')) }
+    ];
+
+    const posterBlock = 'display:none;';
+
+    // Objeto final que el marcado de index.html consume vía {{ }} / sc-if / sc-for.
+    return {
+      t, lang, year: new Date().getFullYear(),
+      isMobile: this.state.isMobile, isDesktop: !this.state.isMobile,
+      menuOpen: this.state.menuOpen, menuClosed: !this.state.menuOpen,
+      showMobileMenu: this.state.isMobile && this.state.menuOpen,
+      isHome: page === 'inicio', isAbout: page === 'nosotros', isAdopt: page === 'adopciones', isContact: page === 'contacto', isDonate: page === 'donar',
+      navItems, slides, dots, activeCaption, showWelcomeBubble, welcomeBubble: t.hero.welcomeBubble, dogs, featuredDogs, sponsorTiers,
+      posterBlock,
+      donateHref: '#', // overridden by button handlers below via goDonate on the link? keep hash
+      goHome: this.go('inicio'), goAbout: this.go('nosotros'), goAdopt: this.go('adopciones'), goContact: this.go('contacto'), goDonate: this.go('donar'),
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      toggleLang: () => this.setState(s => ({ lang: s.lang === 'es' ? 'en' : 'es', menuOpen: false })),
+      waContactHref: this.wa(''),
+      waKindHref: this.wa(t.donate.kind.body),
+      formName: this.state.formName, formMsg: this.state.formMsg,
+      onName: (e) => this.setState({ formName: e.target.value }),
+      onMsg: (e) => this.setState({ formMsg: e.target.value }),
+      contactSubmitHref: this.wa(t.contact.waMsg(this.state.formName, this.state.formMsg))
+    };
+  }
+}
+</script>
+</body>
+</html>

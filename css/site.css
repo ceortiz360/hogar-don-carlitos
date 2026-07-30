@@ -1,0 +1,199 @@
+/*
+ * site.css — estilos propios de Hogar Don Carlitos.
+ *
+ * Extraído de los `style="..."` en línea que traía index.html.
+ * Cada clase de aquí corresponde 1:1 al bloque de estilo que antes
+ * estaba inline sobre un elemento — mismos valores, solo movidos aquí
+ * para que el marcado en index.html sea más legible.
+ *
+ * Los tokens (--color-*, --font-*, --space-*, etc.) vienen del sistema de
+ * diseño en _ds/modernist-.../styles.css — cárgalo antes que este archivo.
+ *
+ * 4 estilos siguen inline a propósito (no se movieron aquí): son cadenas
+ * CSS calculadas en JS por renderVals() (item.style, item.mobileStyle,
+ * s.wrapStyle, d.style) porque cambian según el estado (idioma activo,
+ * slide del carrusel, etc.) — ver comentarios en el <script data-dc-script>
+ * al final de index.html.
+ */
+
+
+/* Estructura general */
+.hdc-app-shell { font-family: var(--font-body); color: var(--color-text); background: var(--color-bg); min-height: 100vh; }
+
+/* Barra de navegación */
+.hdc-nav { position: sticky; top: 0; z-index: 60; background: var(--color-bg); border-bottom: 2px solid var(--color-divider); display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: 14px clamp(18px, 5vw, 56px); }
+.hdc-nav-brand { display: flex; align-items: center; gap: 12px; background: none; border: 0; padding: 0; cursor: pointer; color: var(--color-text); text-align: left; }
+.hdc-icon-badge { display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: var(--color-accent); color: #fff; }
+.hdc-nav-brand-text { display: flex; flex-direction: column; line-height: 1; }
+.hdc-nav-brand-title { font-family: var(--font-heading); font-weight: 800; font-size: 18px; letter-spacing: -0.01em; }
+.hdc-nav-brand-tag { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-top: 4px; }
+.hdc-nav-mobile-actions { display: flex; align-items: center; gap: 10px; }
+.hdc-btn-nav-donate-mobile { padding: 10px 16px; }
+.hdc-nav-menu-btn { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: none; border: 2px solid var(--color-divider); color: var(--color-text); cursor: pointer; }
+.hdc-nav-desktop-actions { display: flex; align-items: center; gap: clamp(14px, 2vw, 30px); }
+.hdc-nav-lang-btn { display: flex; align-items: center; gap: 6px; background: none; border: 2px solid var(--color-divider); color: var(--color-text); font-family: var(--font-heading); font-weight: 700; font-size: 12px; letter-spacing: 0.08em; padding: 8px 12px; cursor: pointer; }
+.hdc-btn-nav-donate { padding: 11px 20px; }
+.hdc-mobile-menu { position: sticky; top: 69px; z-index: 55; background: var(--color-bg); border-bottom: 2px solid var(--color-divider); display: flex; flex-direction: column; }
+.hdc-mobile-menu-lang-btn { text-align: left; background: var(--color-surface); border: 0; border-top: 1px solid var(--color-divider); color: var(--color-text); font-family: var(--font-heading); font-weight: 700; font-size: 14px; letter-spacing: 0.06em; padding: 16px clamp(18px, 5vw, 56px); cursor: pointer; }
+
+/* Hero / carrusel de inicio */
+.hdc-hero { position: relative; overflow: hidden; min-height: clamp(540px, 82vh, 820px); display: flex; align-items: flex-end; }
+.hdc-abs-fill { position: absolute; inset: 0; }
+.hdc-hero-img-pos-a { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; opacity: 0.7; animation: hdcKen 9s ease-out both; }
+.hdc-hero-img-pos-b { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; opacity: 0.7; animation: hdcKen 9s ease-out both; }
+.hdc-hero-slot-img { width: 100%; height: 100%; animation: hdcKen 9s ease-out both; }
+.hdc-hero-gradient { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,18,17,.82) 0%, rgba(20,18,17,.55) 42%, rgba(20,18,17,.15) 100%); }
+.hdc-hero-content { position: relative; width: 100%; max-width: 1240px; margin: 0 auto; padding: clamp(28px, 6vw, 72px) clamp(18px, 5vw, 56px) clamp(28px, 5vw, 60px); }
+.hdc-hero-kicker { display: inline-flex; align-items: center; gap: 8px; background: var(--color-accent); color: #fff; font-family: var(--font-heading); font-weight: 700; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; padding: 7px 12px; }
+.hdc-hero-title { font-family: var(--font-heading); font-weight: 800; color: #fff; font-size: clamp(38px, 6.2vw, 82px); line-height: 1.02; letter-spacing: -0.02em; margin: 22px 0 0; max-width: 15ch; text-wrap: balance; }
+.hdc-hero-sub { color: rgba(255,255,255,.9); font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; max-width: 52ch; margin: 22px 0 0; }
+.hdc-hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px; }
+.hdc-btn-hero-donate { padding: 15px 26px; font-size: 15px; }
+.hdc-icon-inline-ml { margin-left: 8px; }
+.hdc-btn-outline-white { padding: 15px 26px; font-size: 15px; background: transparent; color: #fff; border: 2px solid #fff; }
+.hdc-hero-meta-row { display: flex; align-items: center; gap: 16px; margin-top: 34px; }
+.hdc-hero-dots-row { display: flex; gap: 8px; }
+.hdc-hero-caption { color: rgba(255,255,255,.85); font-size: 14px; font-style: italic; }
+
+/* Sección de impacto (inicio) */
+.hdc-section-pad-md { border-bottom: 2px solid var(--color-divider); padding: clamp(40px, 5vw, 64px) clamp(18px, 5vw, 56px); }
+.hdc-container-lg { max-width: 1240px; margin: 0 auto; }
+.hdc-kicker-label { display: block; font-family: var(--font-heading); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 8px; }
+.hdc-impact-title { font-size: clamp(26px, 3vw, 40px); letter-spacing: -0.015em; margin: 0 0 32px; max-width: 22ch; }
+.hdc-impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: clamp(20px, 3vw, 40px); }
+.hdc-stat-item { border-top: 2px solid var(--color-text); padding-top: 16px; }
+.hdc-stat-number { font-family: var(--font-heading); font-weight: 800; color: var(--color-accent); font-size: clamp(40px, 5vw, 62px); line-height: 1; letter-spacing: -0.02em; }
+.hdc-stat-label { font-size: 15px; line-height: 1.4; margin-top: 12px; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 24ch; }
+
+/* Quiénes nos cuidan (inicio) */
+.hdc-section-pad-lg { border-bottom: 2px solid var(--color-divider); padding: clamp(48px, 6vw, 80px) clamp(18px, 5vw, 56px); }
+.hdc-grid-2col-center { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(28px, 4vw, 64px); align-items: center; }
+.hdc-kicker-label-mb12 { display: block; font-family: var(--font-heading); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 12px; }
+.hdc-section-title-md { font-size: clamp(28px, 3.4vw, 46px); letter-spacing: -0.015em; margin: 0 0 20px; max-width: 16ch; }
+.hdc-body-copy { font-size: 17px; line-height: 1.65; color: color-mix(in srgb, var(--color-text) 80%, transparent); max-width: 52ch; }
+.hdc-btn-cta-secondary { margin-top: 26px; padding: 13px 22px; }
+.hdc-figure-4-3 { margin: 0; aspect-ratio: 4 / 3; }
+.hdc-fill-100 { width: 100%; height: 100%; }
+.hdc-photo-cover { width: 100%; height: 100%; object-fit: cover; }
+.hdc-row-header { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
+.hdc-section-title-flush { font-size: clamp(28px, 3.4vw, 46px); letter-spacing: -0.015em; margin: 0; max-width: 18ch; }
+.hdc-link-cta { background: none; border: 0; font-family: var(--font-heading); font-weight: 700; font-size: 15px; color: var(--color-text); cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+
+/* Perritos destacados (inicio) */
+.hdc-cards-grid-featured { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(18px, 2.5vw, 28px); }
+.hdc-dog-card { border: 2px solid var(--color-divider); background: var(--color-bg); display: flex; flex-direction: column; }
+.hdc-dog-card-photo-4-3 { margin: 0; aspect-ratio: 4 / 3; border-bottom: 2px solid var(--color-divider); }
+.hdc-dog-card-body { padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.hdc-row-baseline { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.hdc-dog-name-sm { font-size: 24px; margin: 0; letter-spacing: -0.01em; }
+.hdc-dog-meta { font-size: 13px; color: color-mix(in srgb, var(--color-text) 60%, transparent); }
+.hdc-dog-desc { font-size: 15px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 78%, transparent); margin: 0; flex: 1; }
+.hdc-btn-dog-cta { margin-top: 6px; padding: 11px 16px; justify-content: flex-start; }
+
+/* Banda CTA 'poster' (se reutiliza en varias páginas) */
+.hdc-poster-band { background: var(--color-accent); color: #fff; padding: clamp(48px, 6vw, 88px) clamp(18px, 5vw, 56px); }
+.hdc-container-md { max-width: 1000px; margin: 0 auto; }
+.hdc-poster-title { font-family: var(--font-heading); font-weight: 800; color: #fff; font-size: clamp(30px, 4.6vw, 60px); line-height: 1.04; letter-spacing: -0.02em; margin: 0 0 20px; max-width: 15ch; }
+.hdc-poster-sub { color: rgba(255,255,255,.9); font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; max-width: 50ch; margin: 0 0 30px; }
+.hdc-poster-actions { display: flex; flex-wrap: wrap; gap: 14px; }
+.hdc-btn-white { padding: 15px 26px; font-size: 15px; background: #fff; color: var(--color-accent); border: 2px solid #fff; }
+
+/* Encabezado de página: Quiénes somos */
+.hdc-page-header { border-bottom: 2px solid var(--color-divider); padding: clamp(48px, 6vw, 88px) clamp(18px, 5vw, 56px) clamp(40px, 5vw, 64px); }
+.hdc-page-kicker { display: block; font-family: var(--font-heading); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 14px; }
+.hdc-page-title { font-size: clamp(34px, 5vw, 68px); letter-spacing: -0.02em; line-height: 1.04; margin: 0 0 22px; max-width: 16ch; }
+.hdc-page-lead-58 { font-size: clamp(18px, 1.6vw, 22px); line-height: 1.6; color: color-mix(in srgb, var(--color-text) 82%, transparent); max-width: 58ch; }
+
+/* Quiénes somos: nuestra historia */
+.hdc-section-pad-story { border-bottom: 2px solid var(--color-divider); padding: clamp(40px, 5vw, 72px) clamp(18px, 5vw, 56px); }
+.hdc-figure-4-5 { margin: 0; aspect-ratio: 4 / 5; }
+.hdc-story-title { font-size: clamp(24px, 2.6vw, 34px); letter-spacing: -0.015em; margin: 0 0 18px; }
+.hdc-story-para { font-size: 17px; line-height: 1.7; color: color-mix(in srgb, var(--color-text) 80%, transparent); margin: 0 0 16px; }
+.hdc-story-para-tight { font-size: 17px; line-height: 1.7; color: color-mix(in srgb, var(--color-text) 80%, transparent); margin: 0 0 22px; }
+.hdc-story-quote { font-family: var(--font-heading); font-weight: 700; font-size: clamp(19px, 1.8vw, 23px); line-height: 1.4; letter-spacing: -0.01em; margin: 0; border-left: 0; border-top: 2px solid var(--color-accent); padding-top: 16px; color: var(--color-accent-700); }
+
+/* Quiénes somos: valores */
+.hdc-values-title { font-size: clamp(24px, 2.8vw, 38px); letter-spacing: -0.015em; margin: 0 0 32px; }
+.hdc-values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(20px, 3vw, 40px); }
+.hdc-value-item { border-top: 2px solid var(--color-text); padding-top: 18px; }
+.hdc-value-item-title { font-size: 21px; margin: 0 0 10px; letter-spacing: -0.01em; }
+.hdc-value-item-desc { font-size: 15.5px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 78%, transparent); margin: 0; }
+
+/* Encabezados de página: Adopciones / Donación / Contáctanos */
+.hdc-page-header-compact { border-bottom: 2px solid var(--color-divider); padding: clamp(48px, 6vw, 88px) clamp(18px, 5vw, 56px) clamp(36px, 4vw, 56px); }
+.hdc-page-lead-56 { font-size: clamp(17px, 1.5vw, 21px); line-height: 1.6; color: color-mix(in srgb, var(--color-text) 82%, transparent); max-width: 56ch; }
+.hdc-section-pad-list { border-bottom: 2px solid var(--color-divider); padding: clamp(36px, 5vw, 64px) clamp(18px, 5vw, 56px); }
+
+/* Adopciones: grilla de perritos */
+.hdc-adopt-grid { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(20px, 2.5vw, 30px); }
+.hdc-dog-card-photo-square { margin: 0; aspect-ratio: 1 / 1; border-bottom: 2px solid var(--color-divider); position: relative; }
+.hdc-dog-card-body-adopt { padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.hdc-dog-name { font-size: 25px; margin: 0; letter-spacing: -0.01em; }
+.hdc-dog-meta-right { font-size: 13px; color: color-mix(in srgb, var(--color-text) 60%, transparent); text-align: right; }
+.hdc-dog-desc-adopt { font-size: 15px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 80%, transparent); margin: 0; flex: 1; }
+.hdc-dog-health-row { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--color-accent-700); font-weight: 600; }
+.hdc-btn-dog-cta-adopt { margin-top: 4px; padding: 12px 16px; justify-content: flex-start; }
+.hdc-icon-ml-auto { margin-left: auto; }
+.hdc-adopt-note-wrap { max-width: 1240px; margin: clamp(32px, 4vw, 48px) auto 0; border-top: 2px solid var(--color-divider); padding-top: 28px; }
+.hdc-adopt-note-text { font-size: 16px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 78%, transparent); margin: 0; max-width: 60ch; }
+.hdc-page-title-narrow { font-size: clamp(34px, 5vw, 68px); letter-spacing: -0.02em; line-height: 1.04; margin: 0 0 22px; max-width: 15ch; }
+.hdc-page-lead-donate { font-size: clamp(18px, 1.6vw, 22px); line-height: 1.6; color: color-mix(in srgb, var(--color-text) 82%, transparent); max-width: 56ch; }
+
+/* Donación: tarjetas (banco / especie / apadrinar) */
+.hdc-donate-grid { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(20px, 2.5vw, 32px); }
+.hdc-donate-card-emphasis { border: 2px solid var(--color-text); display: flex; flex-direction: column; }
+.hdc-donate-card-head-dark { background: var(--color-text); color: var(--color-bg); padding: 16px 22px; display: flex; align-items: center; gap: 12px; }
+.hdc-donate-card-head-title { font-size: 20px; margin: 0; color: var(--color-bg); }
+.hdc-donate-card-body { padding: 22px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+.hdc-muted-copy { font-size: 15px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 78%, transparent); margin: 0; }
+.hdc-bank-row { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--color-divider); padding-bottom: 8px; }
+.hdc-bank-row-label { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent); }
+.hdc-bank-row-value { font-size: 15px; font-weight: 600; text-align: right; }
+.hdc-donate-card { border: 2px solid var(--color-divider); display: flex; flex-direction: column; }
+.hdc-donate-card-head { padding: 16px 22px; border-bottom: 2px solid var(--color-divider); display: flex; align-items: center; gap: 12px; }
+.hdc-icon-accent { color: var(--color-accent); }
+.hdc-donate-card-title { font-size: 20px; margin: 0; }
+.hdc-donate-card-body-tight { padding: 22px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.hdc-stack-10 { display: flex; flex-direction: column; gap: 10px; }
+.hdc-kind-item { display: flex; align-items: center; gap: 10px; font-size: 15px; }
+.hdc-btn-kind-cta { margin-top: auto; padding: 12px 16px; }
+.hdc-sponsor-tier { display: flex; align-items: center; justify-content: space-between; gap: 12px; border: 2px solid var(--color-divider); padding: 12px 16px; text-decoration: none; color: var(--color-text); }
+.hdc-sponsor-amount { display: block; font-family: var(--font-heading); font-weight: 800; font-size: 19px; color: var(--color-accent); }
+.hdc-sponsor-label { font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent); }
+.hdc-page-lead-contact { font-size: clamp(18px, 1.6vw, 22px); line-height: 1.6; color: color-mix(in srgb, var(--color-text) 82%, transparent); max-width: 54ch; }
+
+/* Contáctanos: tarjetas y formulario */
+.hdc-contact-grid { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(28px, 4vw, 56px); }
+.hdc-contact-col { display: flex; flex-direction: column; gap: 18px; }
+.hdc-contact-card { display: flex; align-items: center; gap: 16px; border: 2px solid var(--color-divider); padding: 20px; text-decoration: none; color: var(--color-text); }
+.hdc-contact-icon-accent { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: var(--color-accent); color: #fff; flex-shrink: 0; }
+.hdc-contact-label { display: block; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent); margin-bottom: 4px; }
+.hdc-contact-value { font-family: var(--font-heading); font-weight: 700; font-size: 19px; }
+.hdc-contact-icon-dark { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: var(--color-text); color: #fff; flex-shrink: 0; }
+.hdc-contact-loc-row { border: 2px solid var(--color-divider); padding: 20px; display: flex; align-items: center; gap: 16px; }
+.hdc-contact-icon-outline { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border: 2px solid var(--color-divider); color: var(--color-accent); flex-shrink: 0; }
+.hdc-contact-loc-value { font-family: var(--font-heading); font-weight: 700; font-size: 17px; }
+.hdc-contact-form { border: 2px solid var(--color-divider); padding: clamp(22px, 3vw, 32px); }
+.hdc-contact-form-title { font-size: 24px; margin: 0 0 8px; }
+.hdc-contact-form-sub { font-size: 14.5px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 72%, transparent); margin: 0 0 20px; }
+.hdc-contact-form-fields { display: flex; flex-direction: column; gap: 16px; }
+.hdc-field-wrap { display: flex; flex-direction: column; gap: 6px; }
+.hdc-field-label { font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 65%, transparent); }
+.hdc-field-input { font-size: 15px; }
+.hdc-field-textarea { font-size: 15px; resize: vertical; font-family: var(--font-body); }
+.hdc-btn-contact-submit { padding: 14px 20px; justify-content: flex-start; }
+.hdc-icon-ml-10 { margin-left: 10px; }
+
+/* Footer */
+.hdc-footer { background: var(--color-text); color: var(--color-bg); padding: clamp(40px, 5vw, 64px) clamp(18px, 5vw, 56px) clamp(28px, 3vw, 40px); }
+.hdc-footer-grid { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(28px, 4vw, 56px); }
+.hdc-footer-brand-row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.hdc-footer-brand-title { font-family: var(--font-heading); font-weight: 800; font-size: 18px; }
+.hdc-footer-tagline { font-size: 15px; line-height: 1.6; color: rgba(255,255,255,.7); margin: 0; max-width: 34ch; }
+.hdc-footer-col-title { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,.55); margin: 0 0 16px; }
+.hdc-footer-nav-list { display: flex; flex-direction: column; gap: 12px; }
+.hdc-footer-nav-link { background: none; border: 0; padding: 0; text-align: left; color: rgba(255,255,255,.85); font-family: var(--font-body); font-size: 15px; cursor: pointer; }
+.hdc-footer-social-row { display: flex; gap: 12px; }
+.hdc-footer-social-link { display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 2px solid rgba(255,255,255,.3); color: #fff; }
+.hdc-btn-footer-donate { margin-top: 22px; padding: 12px 20px; }
+.hdc-footer-bottom { max-width: 1240px; margin: clamp(32px, 4vw, 48px) auto 0; border-top: 1px solid rgba(255,255,255,.2); padding-top: 22px; font-size: 13px; color: rgba(255,255,255,.55); }

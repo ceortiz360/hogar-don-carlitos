@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<template id="__bundler_thumbnail" data-bg-color="#201e1d">
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+<rect width="1200" height="800" fill="#201e1d"/>
+<circle cx="600" cy="330" r="150" fill="#ec3013"/>
+<text x="600" y="365" font-family="Arial" font-size="130" fill="#201e1d" text-anchor="middle">HD</text>
+<text x="600" y="560" font-family="Arial" font-size="56" fill="#f3f2f2" text-anchor="middle">Hogar Don Carlitos</text>
+</svg>
+</template>
+<link rel="stylesheet" href="_ds/modernist-b2eb6d98-5ef1-4f3e-831f-98b7e9fd00cd/styles.css">
+<script src="_ds/modernist-b2eb6d98-5ef1-4f3e-831f-98b7e9fd00cd/_ds_bundle.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+<script src="image-slot.js"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+  a { color: var(--color-accent-700); text-underline-offset: 3px; }
+  a:hover { color: var(--color-accent); }
+  ::selection { background: color-mix(in srgb, var(--color-accent) 22%, transparent); }
+  .hdc-link:hover { color: var(--color-accent) !important; }
+  .hdc-card { transition: box-shadow .18s ease, transform .18s ease; }
+  .hdc-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  @keyframes hdcKen { from { transform: scale(1.02); } to { transform: scale(1.12); } }
+</style>
+</helmet>
+<div style="font-family: var(--font-body); color: var(--color-text); background: var(--color-bg); min-height: 100vh;">
+
+  <nav style="position: sticky; top: 0; z-index: 60; background: var(--color-bg); border-bottom: 2px solid var(--color-divider); display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: 14px clamp(18px, 5vw, 56px);">
+    <button style="display: flex; align-items: center; gap: 12px; background: none; border: 0; padding: 0; cursor: pointer; color: var(--color-text); text-align: left;" onClick="{{ goHome }}">
+      <span style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: var(--color-accent); color: #fff;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="2"></circle><circle cx="18" cy="8" r="2"></circle><circle cx="20" cy="16" r="2"></circle><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"></path></svg>
+      </span>
+      <span style="display: flex; flex-direction: column; line-height: 1;">
+        <span style="font-family: var(--font-heading); font-weight: 800; font-size: 18px; letter-spacing: -0.01em;">Hogar Don Carlitos</span>
+        <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-top: 4px;">{{ t.brandTag }}</span>
+      </span>
+    </button>
+
+    <sc-if value="{{ isMobile }}" hint-placeholder-val="{{ false }}">
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <button class="btn btn-primary" style="padding: 10px 16px;" onClick="{{ goDonate }}">{{ t.nav.donate }}</button>
+        <button style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; background: none; border: 2px solid var(--color-divider); color: var(--color-text); cursor: pointer;" onClick="{{ toggleMenu }}" aria-label="Menu">
+          <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+          </sc-if>
+          <sc-if value="{{ menuClosed }}" hint-placeholder-val="{{ true }}">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </sc-if>
+        </button>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ isDesktop }}" hint-placeholder-val="{{ true }}">
+      <div style="display: flex; align-items: center; gap: clamp(14px, 2vw, 30px);">
+        <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="4">
+          <button class="hdc-link" onClick="{{ item.onClick }}" style="{{ item.style }}">{{ item.label }}</button>
+        </sc-for>
+        <button style="display: flex; align-items: center; gap: 6px; background: none; border: 2px solid var(--color-divider); color: var(--color-text); font-family: var(--font-heading); font-weight: 700; font-size: 12px; letter-spacing: 0.08em; padding: 8px 12px; cursor: pointer;" onClick="{{ toggleLang }}">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          {{ t.langOther }}
+        </button>
+        <button class="btn btn-primary" style="padding: 11px 20px;" onClick="{{ goDonate }}">{{ t.nav.donate }}</button>
+      </div>
+    </sc-if>
+  </nav>
+
+  <sc-if value="{{ showMobileMenu }}" hint-placeholder-val="{{ false }}">
+    <div style="position: sticky; top: 69px; z-index: 55; background: var(--color-bg); border-bottom: 2px solid var(--color-divider); display: flex; flex-direction: column;">
+      <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="4">
+        <button class="hdc-link" onClick="{{ item.onClick }}" style="{{ item.mobileStyle }}">{{ item.label }}</button>
+      </sc-for>
+      <button style="text-align: left; background: var(--color-surface); border: 0; border-top: 1px solid var(--color-divider); color: var(--color-text); font-family: var(--font-heading); font-weight: 700; font-size: 14px; letter-spacing: 0.06em; padding: 16px clamp(18px, 5vw, 56px); cursor: pointer;" onClick="{{ toggleLang }}">{{ t.switchTo }}</button>
+    </div>
+  </sc-if>
+
+  <!-- ============================ INICIO ============================ -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <div>
+      <section style="position: relative; overflow: hidden; min-height: clamp(540px, 82vh, 820px); display: flex; align-items: flex-end;">
+        <sc-for list="{{ slides }}" as="s" hint-placeholder-count="6">
+          <div style="{{ s.wrapStyle }}">
+            <sc-if value="{{ s.isWelcome }}" hint-placeholder-val="{{ false }}">
+              <div style="position: absolute; inset: 0;">
+                <sc-if value="{{ s.isImg1 }}" hint-placeholder-val="{{ false }}">
+                  <img style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; opacity: 0.7; animation: hdcKen 9s ease-out both;" src="uploads/1..png" alt="Perrita de bienvenida">
+                </sc-if>
+                <sc-if value="{{ s.isImg2 }}" hint-placeholder-val="{{ false }}">
+                  <img style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; opacity: 0.7; animation: hdcKen 9s ease-out both;" src="uploads/2.png" alt="Perrito rescatado">
+                </sc-if>
+                <sc-if value="{{ s.isImg3 }}" hint-placeholder-val="{{ false }}">
+                  <img style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; opacity: 0.7; animation: hdcKen 9s ease-out both;" src="uploads/3-cc6d5ecf.png" alt="Perro sonriendo">
+                </sc-if>
+                <sc-if value="{{ s.isImg4 }}" hint-placeholder-val="{{ false }}">
+                  <img style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; opacity: 0.7; animation: hdcKen 9s ease-out both;" src="uploads/4.png" alt="Perro negro feliz">
+                </sc-if>
+                <sc-if value="{{ s.isImg5 }}" hint-placeholder-val="{{ false }}">
+                  <img style="width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; opacity: 0.7; animation: hdcKen 9s ease-out both;" src="uploads/5.png" alt="Perro sonriente pidiendo una oportunidad">
+                </sc-if>
+              </div>
+            </sc-if>
+            <sc-if value="{{ s.isWelcomeNot }}" hint-placeholder-val="{{ true }}">
+              <div class="grayscale" style="position: absolute; inset: 0;">
+                <image-slot style="width: 100%; height: 100%; animation: hdcKen 9s ease-out both;" id="{{ s.id }}" shape="rect" placeholder="{{ s.placeholder }}"></image-slot>
+              </div>
+            </sc-if>
+          </div>
+        </sc-for>
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,18,17,.82) 0%, rgba(20,18,17,.55) 42%, rgba(20,18,17,.15) 100%);"></div>
+
+        <div style="position: relative; width: 100%; max-width: 1240px; margin: 0 auto; padding: clamp(28px, 6vw, 72px) clamp(18px, 5vw, 56px) clamp(28px, 5vw, 60px);">
+          <span style="display: inline-flex; align-items: center; gap: 8px; background: var(--color-accent); color: #fff; font-family: var(--font-heading); font-weight: 700; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; padding: 7px 12px;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7.5-4.6-10-9.2C.4 8.4 2 5 5.3 5c2 0 3.4 1.2 4.2 2.4C10.3 6.2 11.7 5 13.7 5 17 5 18.6 8.4 17 11.8 14.5 16.4 12 21 12 21z"></path></svg>
+            {{ t.hero.kicker }}
+          </span>
+          <h1 style="font-family: var(--font-heading); font-weight: 800; color: #fff; font-size: clamp(38px, 6.2vw, 82px); line-height: 1.02; letter-spacing: -0.02em; margin: 22px 0 0; max-width: 15ch; text-wrap: balance;">{{ t.hero.title }}</h1>
+          <p style="color: rgba(255,255,255,.9); font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; max-width: 52ch; margin: 22px 0 0;">{{ t.hero.sub }}</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 14px; margin-top: 30px;">
+            <button class="btn btn-primary" style="padding: 15px 26px; font-size: 15px;" onClick="{{ goDonate }}">{{ t.hero.ctaDonate }}
+              <svg style="margin-left: 8px;" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </button>
+            <button class="btn" style="padding: 15px 26px; font-size: 15px; background: transparent; color: #fff; border: 2px solid #fff;" onClick="{{ goAdopt }}">{{ t.hero.ctaAdopt }}</button>
+          </div>
+          <div style="display: flex; align-items: center; gap: 16px; margin-top: 34px;">
+            <div style="display: flex; gap: 8px;">
+              <sc-for list="{{ dots }}" as="d" hint-placeholder-count="5">
+                <button onClick="{{ d.onClick }}" aria-label="slide" style="{{ d.style }}"></button>
+              </sc-for>
+            </div>
+            <span style="color: rgba(255,255,255,.85); font-size: 14px; font-style: italic;">{{ activeCaption }}</span>
+          </div>
+        </div>
+      </section>
+
+      <section style="border-bottom: 2px solid var(--color-divider); padding: clamp(40px, 5vw, 64px) clamp(18px, 5vw, 56px);">
+        <div style="max-width: 1240px; margin: 0 auto;">
+          <span style="display: block; font-family: var(--font-heading); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 8px;">{{ t.impact.kicker }}</span>
+          <h2 style="font-size: clamp(26px, 3vw, 40px); letter-spacing: -0.015em; margin: 0 0 32px; max-width: 22ch;">{{ t.impact.title }}</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: clamp(20px, 3vw, 40px);">
+            <sc-for list="{{ t.impact.stats }}" as="stat" hint-placeholder-count="3">
+              <div style="border-top: 2px solid var(--color-text); padding-top: 16px;">
+                <div style="font-family: var(--font-heading); font-weight: 800; color: var(--color-accent); font-size: clamp(40px, 5vw, 62px); line-height: 1; letter-spacing: -0.02em;">{{ stat.n }}</div>
+                <div style="font-size: 15px; line-height: 1.4; margin-top: 12px; color: color-mix(in srgb, var(--color-text) 78%, transparent); max-width: 24ch;">{{ stat.l }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+
+      <section style="border-bottom: 2px solid var(--color-divider); padding: clamp(48px, 6vw, 80px) clamp(18px, 5vw, 56px);">
+        <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(28px, 4vw, 64px); align-items: center;">
+          <div>
+            <span style="display: block; font-family: var(--font-heading); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 12px;">{{ t.aboutTeaser.kicker }}</span>
+            <h2 style="font-size: clamp(28px, 3.4vw, 46px); letter-spacing: -0.015em; margin: 0 0 20px; max-width: 16ch;">{{ t.aboutTeaser.title }}</h2>
+            <p style="font-size: 17px; line-height: 1.65; color: color-mix(in srgb, var(--color-text) 80%, transparent); max-width: 52ch;">{{ t.aboutTeaser.body }}</p>
+            <button class="btn btn-secondary" style="margin-top: 26px; padding: 13px 22px;" onClick="{{ goAbout }}">{{ t.aboutTeaser.cta }}
+              <svg style="margin-left: 8px;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </button>
+          </div>
+          <figure class="grayscale" style="margin: 0; aspect-ratio: 4 / 3;">
+            <image-slot style="width: 100%; height: 100%;" id="home-about-photo" shape="rect" placeholder="Foto del equipo o del refugio"></image-slot>
+          </figure>
+        </div>
+      </section>
+
+      <section style="border-bottom: 2px solid var(--color-divider); padding: clamp(48px, 6vw, 80px) clamp(18px, 5vw, 56px);">
+        <div style="max-width: 1240px; margin: 0 auto;">
+          <div style="display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 32px;">
+            <div>
+              <span style="display: block; font-family: var(--font-heading); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 8px;">{{ t.featured.kicker }}</span>
+              <h2 style="font-size: clamp(28px, 3.4vw, 46px); letter-spacing: -0.015em; margin: 0; max-width: 18ch;">{{ t.featured.title }}</h2>
+            </div>
+            <button class="hdc-link" style="background: none; border: 0; font-family: var(--font-heading); font-weight: 700; font-size: 15px; color: var(--color-text); cursor: pointer; display: inline-flex; align-items: center; gap: 8px;" onClick="{{ goAdopt }}">{{ t.featured.cta }}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+            </button>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(18px, 2.5vw, 28px);">
+            <sc-for list="{{ featuredDogs }}" as="dog" hint-placeholder-count="3">
+              <article class="hdc-card" style="border: 2px solid var(--color-divider); background: var(--color-bg); display: flex; flex-direction: column;">
+                <figure class="grayscale" style="margin: 0; aspect-ratio: 4 / 3; border-bottom: 2px solid var(--color-divider);">
+                  <image-slot style="width: 100%; height: 100%;" id="{{ dog.slotId }}" shape="rect" placeholder="{{ dog.placeholder }}"></image-slot>
+                </figure>
+                <div style="padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 8px; flex: 1;">
+                  <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
+                    <h3 style="font-size: 24px; margin: 0; letter-spacing: -0.01em;">{{ dog.name }}</h3>
+                    <span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">{{ dog.meta }}</span>
+                  </div>
+                  <p style="font-size: 15px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 78%, transparent); margin: 0; flex: 1;">{{ dog.personality }}</p>
+                  <a class="btn btn-primary" style="margin-top: 6px; padding: 11px 16px; justify-content: flex-start;" href="{{ dog.link }}" target="_blank" rel="noopener">{{ t.adopt.request }}</a>
+                </div>
+              </article>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+      <section style="background: var(--color-accent); color: #fff; padding: clamp(48px, 6vw, 88px) clamp(18px, 5vw, 56px);">
+        <div style="max-width: 1000px; margin: 0 auto;">
+          <h2 style="font-family: var(--font-heading); font-weight: 800; color: #fff; font-size: clamp(30px, 4.6vw, 60px); line-height: 1.04; letter-spacing: -0.02em; margin: 0 0 20px; max-width: 15ch;">{{ t.poster.title }}</h2>
+          <p style="color: rgba(255,255,255,.9); font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; max-width: 50ch; margin: 0 0 30px;">{{ t.poster.sub }}</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 14px;">
+            <a class="btn" style="padding: 15px 26px; font-size: 15px; background: #fff; color: var(--color-accent); border: 2px solid #fff;" href="{{ waContactHref }}" target="_blank" rel="noopener">{{ t.poster.ctaDonate }}</a>
+            <button class="btn" style="padding: 15px 26px; font-size: 15px; background: transparent; color: #fff; border: 2px solid #fff;" onClick="{{ goContact }}">{{ t.poster.ctaContact }}</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </sc-if>
+
+  <!-- ========================= QUIENES SOMOS ========================= -->
+  <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <section style="border-bottom: 2px solid var(--color-divider); padding: clamp(48px, 6vw, 88px) clamp(18px, 5vw, 56px) clamp(40px, 5vw, 64px);">
+        <div style="max-width: 1000px; margin: 0 auto;">
+          <span style="display: block; font-family: var(--font-heading); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 14px;">{{ t.about.kicker }}</span>
+          <h1 style="font-size: clamp(34px, 5vw, 68px); letter-spacing: -0.02em; line-height: 1.04; margin: 0 0 22px; max-width: 16ch;">{{ t.about.title }}</h1>
+          <p style="font-size: clamp(18px, 1.6vw, 22px); line-height: 1.6; color: color-mix(in srgb, var(--color-text) 82%, transparent); max-width: 58ch;">{{ t.about.lead }}</p>
+        </div>
+      </section>
+      <section style="border-bottom: 2px solid var(--color-divider); padding: clamp(40px, 5vw, 72px) clamp(18px, 5vw, 56px);">
+        <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(28px, 4vw, 64px); align-items: center;">
+          <figure style="margin: 0; aspect-ratio: 4 / 5;">
+            <image-slot style="width: 100%; height: 100%;" id="about-main-photo" shape="rect" placeholder="Foto del refugio o de un rescate"></image-slot>
+          </figure>
+          <div>
+            <h2 style="font-size: clamp(24px, 2.6vw, 34px); letter-spacing: -0.015em; margin: 0 0 18px;">{{ t.about.storyTitle }}</h2>
+            <p style="font-size: 17px; line-height: 1.7; color: color-mix(in srgb, var(--color-text) 80%, transparent); margin: 0 0 16px;">{{ t.about.story1 }}</p>
+            <p style="font-size: 17px; line-height: 1.7; color: color-mix(in srgb, var(--color-text) 80%, transparent); margin: 0 0 22px;">{{ t.about.story2 }}</p>
+            <p style="font-family: var(--font-heading); font-weight: 700; font-size: clamp(19px, 1.8vw, 23px); line-height: 1.4; letter-spacing: -0.01em; margin: 0; border-left: 0; border-top: 2px solid var(--color-accent); padding-top: 16px; color: var(--color-accent-700);">{{ t.about.story3 }}</p>
+          </div>
+        </div>
+      </section>
+      <section style="border-bottom: 2px solid var(--color-divider); padding: clamp(40px, 5vw, 72px) clamp(18px, 5vw, 56px);">
+        <div style="max-width: 1240px; margin: 0 auto;">
+          <h2 style="font-size: clamp(24px, 2.8vw, 38px); letter-spacing: -0.015em; margin: 0 0 32px;">{{ t.about.valuesTitle }}</h2>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: clamp(20px, 3vw, 40px);">
+            <sc-for list="{{ t.about.values }}" as="v" hint-placeholder-count="3">
+              <div style="border-top: 2px solid var(--color-text); padding-top: 18px;">
+                <h3 style="font-size: 21px; margin: 0 0 10px; letter-spacing: -0.01em;">{{ v.t }}</h3>
+                <p style="font-size: 15.5px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 78%, transparent); margin: 0;">{{ v.d }}</p>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </section>
+      <section style="background: var(--color-accent); color: #fff; padding: clamp(48px, 6vw, 88px) clamp(18px, 5vw, 56px);">
+        <div style="max-width: 1000px; margin: 0 auto;">
+          <h2 style="font-family: var(--font-heading); font-weight: 800; color: #fff; font-size: clamp(30px, 4.6vw, 60px); line-height: 1.04; letter-spacing: -0.02em; margin: 0 0 20px; max-width: 15ch;">{{ t.poster.title }}</h2>
+          <p style="color: rgba(255,255,255,.9); font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; max-width: 50ch; margin: 0 0 30px;">{{ t.poster.sub }}</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 14px;">
+            <a class="btn" style="padding: 15px 26px; font-size: 15px; background: #fff; color: var(--color-accent); border: 2px solid #fff;" href="{{ waContactHref }}" target="_blank" rel="noopener">{{ t.poster.ctaDonate }}</a>
+            <button class="btn" style="padding: 15px 26px; font-size: 15px; background: transparent; color: #fff; border: 2px solid #fff;" onClick="{{ goContact }}">{{ t.poster.ctaContact }}</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </sc-if>
+
+  <!-- =========================== ADOPCIONES =========================== -->
+  <sc-if value="{{ isAdopt }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <section style="border-bottom: 2px solid var(--color-divider); padding: clamp(48px, 6vw, 88px) clamp(18px, 5vw, 56px) clamp(36px, 4vw, 56px);">
+        <div style="max-width: 1240px; margin: 0 auto;">
+          <span style="display: block; font-family: var(--font-heading); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 14px;">{{ t.adopt.kicker }}</span>
+          <h1 style="font-size: clamp(34px, 5vw, 68px); letter-spacing: -0.02em; line-height: 1.04; margin: 0 0 22px; max-width: 16ch;">{{ t.adopt.title }}</h1>
+          <p style="font-size: clamp(17px, 1.5vw, 21px); line-height: 1.6; color: color-mix(in srgb, var(--color-text) 82%, transparent); max-width: 56ch;">{{ t.adopt.lead }}</p>
+        </div>
+      </section>
+      <section style="border-bottom: 2px solid var(--color-divider); padding: clamp(36px, 5vw, 64px) clamp(18px, 5vw, 56px);">
+        <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(20px, 2.5vw, 30px);">
+          <sc-for list="{{ dogs }}" as="dog" hint-placeholder-count="10">
+            <article class="hdc-card" style="border: 2px solid var(--color-divider); background: var(--color-bg); display: flex; flex-direction: column;">
+              <figure class="grayscale" style="margin: 0; aspect-ratio: 1 / 1; border-bottom: 2px solid var(--color-divider); position: relative;">
+                <image-slot style="width: 100%; height: 100%;" id="{{ dog.slotId }}" shape="rect" placeholder="{{ dog.placeholder }}"></image-slot>
+              </figure>
+              <div style="padding: 18px 20px 22px; display: flex; flex-direction: column; gap: 12px; flex: 1;">
+                <div style="display: flex; align-items: baseline; justify-content: space-between; gap: 10px;">
+                  <h3 style="font-size: 25px; margin: 0; letter-spacing: -0.01em;">{{ dog.name }}</h3>
+                  <span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 60%, transparent); text-align: right;">{{ dog.meta }}</span>
+                </div>
+                <p style="font-size: 15px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 80%, transparent); margin: 0; flex: 1;">{{ dog.personality }}</p>
+                <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--color-accent-700); font-weight: 600;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                  {{ dog.health }}
+                </div>
+                <a class="btn btn-primary" style="margin-top: 4px; padding: 12px 16px; justify-content: flex-start;" href="{{ dog.link }}" target="_blank" rel="noopener">{{ t.adopt.request }}
+                  <svg style="margin-left: auto;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                </a>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+        <div style="max-width: 1240px; margin: clamp(32px, 4vw, 48px) auto 0; border-top: 2px solid var(--color-divider); padding-top: 28px;">
+          <p style="font-size: 16px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 78%, transparent); margin: 0; max-width: 60ch;">{{ t.adopt.note }}</p>
+        </div>
+      </section>
+    </div>
+  </sc-if>
+
+  <!-- ============================ DONACION ============================ -->
+  <sc-if value="{{ isDonate }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <section style="border-bottom: 2px solid var(--color-divider); padding: clamp(48px, 6vw, 88px) clamp(18px, 5vw, 56px) clamp(36px, 4vw, 56px);">
+        <div style="max-width: 1000px; margin: 0 auto;">
+          <span style="display: block; font-family: var(--font-heading); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 14px;">{{ t.donate.kicker }}</span>
+          <h1 style="font-size: clamp(34px, 5vw, 68px); letter-spacing: -0.02em; line-height: 1.04; margin: 0 0 22px; max-width: 15ch;">{{ t.donate.title }}</h1>
+          <p style="font-size: clamp(18px, 1.6vw, 22px); line-height: 1.6; color: color-mix(in srgb, var(--color-text) 82%, transparent); max-width: 56ch;">{{ t.donate.lead }}</p>
+        </div>
+      </section>
+      <section style="border-bottom: 2px solid var(--color-divider); padding: clamp(40px, 5vw, 64px) clamp(18px, 5vw, 56px);">
+        <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(20px, 2.5vw, 32px);">
+
+          <div style="border: 2px solid var(--color-text); display: flex; flex-direction: column;">
+            <div style="background: var(--color-text); color: var(--color-bg); padding: 16px 22px; display: flex; align-items: center; gap: 12px;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="1"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>
+              <h3 style="font-size: 20px; margin: 0; color: var(--color-bg);">{{ t.donate.bank.title }}</h3>
+            </div>
+            <div style="padding: 22px; display: flex; flex-direction: column; gap: 14px; flex: 1;">
+              <p style="font-size: 15px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 78%, transparent); margin: 0;">{{ t.donate.bank.body }}</p>
+              <sc-for list="{{ t.donate.bank.rows }}" as="r" hint-placeholder-count="4">
+                <div style="display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--color-divider); padding-bottom: 8px;">
+                  <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent);">{{ r.k }}</span>
+                  <span style="font-size: 15px; font-weight: 600; text-align: right;">{{ r.v }}</span>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="border: 2px solid var(--color-divider); display: flex; flex-direction: column;">
+            <div style="padding: 16px 22px; border-bottom: 2px solid var(--color-divider); display: flex; align-items: center; gap: 12px;">
+              <span style="color: var(--color-accent);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"></rect><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"></path><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8S13 3 16.5 3a2.5 2.5 0 0 1 0 5"></path></svg></span>
+              <h3 style="font-size: 20px; margin: 0;">{{ t.donate.kind.title }}</h3>
+            </div>
+            <div style="padding: 22px; display: flex; flex-direction: column; gap: 12px; flex: 1;">
+              <p style="font-size: 15px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 78%, transparent); margin: 0;">{{ t.donate.kind.body }}</p>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <sc-for list="{{ t.donate.kind.items }}" as="it" hint-placeholder-count="4">
+                  <div style="display: flex; align-items: center; gap: 10px; font-size: 15px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                    {{ it }}
+                  </div>
+                </sc-for>
+              </div>
+              <a class="btn btn-secondary" style="margin-top: auto; padding: 12px 16px;" href="{{ waKindHref }}" target="_blank" rel="noopener">{{ t.donate.kind.cta }}</a>
+            </div>
+          </div>
+
+          <div style="border: 2px solid var(--color-divider); display: flex; flex-direction: column;">
+            <div style="padding: 16px 22px; border-bottom: 2px solid var(--color-divider); display: flex; align-items: center; gap: 12px;">
+              <span style="color: var(--color-accent);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 14h2a2 2 0 0 0 2-2 2 2 0 0 0-2-2h-3c-.6 0-1.1.2-1.4.6L3 16"></path><path d="m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a2 2 0 0 0-2.75-2.91l-4.2 3.9"></path><path d="m2 15 6 6"></path><path d="M19.5 8.5c.7-.7 1.5-1.6 1.5-2.7A2.7 2.7 0 0 0 16 4a2.7 2.7 0 0 0-5 1.8c0 1.1.8 2 1.5 2.7L16 12z"></path></svg></span>
+              <h3 style="font-size: 20px; margin: 0;">{{ t.donate.sponsor.title }}</h3>
+            </div>
+            <div style="padding: 22px; display: flex; flex-direction: column; gap: 14px; flex: 1;">
+              <p style="font-size: 15px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 78%, transparent); margin: 0;">{{ t.donate.sponsor.body }}</p>
+              <div style="display: flex; flex-direction: column; gap: 10px;">
+                <sc-for list="{{ sponsorTiers }}" as="tier" hint-placeholder-count="3">
+                  <a class="hdc-card" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; border: 2px solid var(--color-divider); padding: 12px 16px; text-decoration: none; color: var(--color-text);" href="{{ tier.href }}" target="_blank" rel="noopener">
+                    <span><span style="display: block; font-family: var(--font-heading); font-weight: 800; font-size: 19px; color: var(--color-accent);">{{ tier.amount }}</span><span style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">{{ tier.label }}</span></span>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                  </a>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+      <section style="background: var(--color-accent); color: #fff; padding: clamp(48px, 6vw, 88px) clamp(18px, 5vw, 56px);">
+        <div style="max-width: 1000px; margin: 0 auto;">
+          <h2 style="font-family: var(--font-heading); font-weight: 800; color: #fff; font-size: clamp(30px, 4.6vw, 60px); line-height: 1.04; letter-spacing: -0.02em; margin: 0 0 20px; max-width: 15ch;">{{ t.poster.title }}</h2>
+          <p style="color: rgba(255,255,255,.9); font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; max-width: 50ch; margin: 0 0 30px;">{{ t.poster.sub }}</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 14px;">
+            <a class="btn" style="padding: 15px 26px; font-size: 15px; background: #fff; color: var(--color-accent); border: 2px solid #fff;" href="{{ waContactHref }}" target="_blank" rel="noopener">{{ t.poster.ctaDonate }}</a>
+            <button class="btn" style="padding: 15px 26px; font-size: 15px; background: transparent; color: #fff; border: 2px solid #fff;" onClick="{{ goContact }}">{{ t.poster.ctaContact }}</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </sc-if>
+
+  <!-- =========================== CONTACTANOS =========================== -->
+  <sc-if value="{{ isContact }}" hint-placeholder-val="{{ false }}">
+    <div>
+      <section style="border-bottom: 2px solid var(--color-divider); padding: clamp(48px, 6vw, 88px) clamp(18px, 5vw, 56px) clamp(36px, 4vw, 56px);">
+        <div style="max-width: 1000px; margin: 0 auto;">
+          <span style="display: block; font-family: var(--font-heading); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--color-accent-700); margin-bottom: 14px;">{{ t.contact.kicker }}</span>
+          <h1 style="font-size: clamp(34px, 5vw, 68px); letter-spacing: -0.02em; line-height: 1.04; margin: 0 0 22px; max-width: 15ch;">{{ t.contact.title }}</h1>
+          <p style="font-size: clamp(18px, 1.6vw, 22px); line-height: 1.6; color: color-mix(in srgb, var(--color-text) 82%, transparent); max-width: 54ch;">{{ t.contact.lead }}</p>
+        </div>
+      </section>
+      <section style="border-bottom: 2px solid var(--color-divider); padding: clamp(40px, 5vw, 64px) clamp(18px, 5vw, 56px);">
+        <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(28px, 4vw, 56px);">
+          <div style="display: flex; flex-direction: column; gap: 18px;">
+            <a class="hdc-card" style="display: flex; align-items: center; gap: 16px; border: 2px solid var(--color-divider); padding: 20px; text-decoration: none; color: var(--color-text);" href="{{ waContactHref }}" target="_blank" rel="noopener">
+              <span style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: var(--color-accent); color: #fff; flex-shrink: 0;"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.13c-.24.68-1.42 1.32-1.95 1.36-.5.04-.5.4-3.16-.66-2.66-1.05-4.34-3.75-4.47-3.92-.13-.18-1.07-1.42-1.07-2.71s.68-1.92.92-2.19c.24-.26.53-.33.7-.33.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.57.8 1.98.87 2.12.07.13.12.29.02.47-.09.18-.14.29-.27.44-.13.15-.28.34-.4.45-.13.13-.27.28-.12.54.16.26.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.17 1.34.26.13.42.11.57-.07.15-.18.66-.77.83-1.03.18-.26.35-.22.59-.13.24.09 1.52.72 1.78.85.26.13.44.2.5.31.06.11.06.63-.18 1.31z"></path></svg></span>
+              <span><span style="display: block; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent); margin-bottom: 4px;">WhatsApp</span><span style="font-family: var(--font-heading); font-weight: 700; font-size: 19px;">+57 318 856 7400</span></span>
+            </a>
+            <a class="hdc-card" style="display: flex; align-items: center; gap: 16px; border: 2px solid var(--color-divider); padding: 20px; text-decoration: none; color: var(--color-text);" href="https://www.instagram.com/hogardoncarlitos" target="_blank" rel="noopener">
+              <span style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; background: var(--color-text); color: #fff; flex-shrink: 0;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><path d="M17.5 6.5h.01"></path></svg></span>
+              <span><span style="display: block; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent); margin-bottom: 4px;">Instagram</span><span style="font-family: var(--font-heading); font-weight: 700; font-size: 19px;">@hogardoncarlitos</span></span>
+            </a>
+            <div style="border: 2px solid var(--color-divider); padding: 20px; display: flex; align-items: center; gap: 16px;">
+              <span style="display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border: 2px solid var(--color-divider); color: var(--color-accent); flex-shrink: 0;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.4-8 12-8 12s-8-7.6-8-12a8 8 0 0 1 16 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
+              <span><span style="display: block; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent); margin-bottom: 4px;">{{ t.contact.locLabel }}</span><span style="font-family: var(--font-heading); font-weight: 700; font-size: 17px;">{{ t.contact.locValue }}</span></span>
+            </div>
+          </div>
+          <div style="border: 2px solid var(--color-divider); padding: clamp(22px, 3vw, 32px);">
+            <h2 style="font-size: 24px; margin: 0 0 8px;">{{ t.contact.formTitle }}</h2>
+            <p style="font-size: 14.5px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 72%, transparent); margin: 0 0 20px;">{{ t.contact.formSub }}</p>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <label style="display: flex; flex-direction: column; gap: 6px;">
+                <span style="font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 65%, transparent);">{{ t.contact.fName }}</span>
+                <input class="input" style="font-size: 15px;" value="{{ formName }}" onInput="{{ onName }}" placeholder="{{ t.contact.phName }}">
+              </label>
+              <label style="display: flex; flex-direction: column; gap: 6px;">
+                <span style="font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 65%, transparent);">{{ t.contact.fMsg }}</span>
+                <textarea class="input" style="font-size: 15px; resize: vertical; font-family: var(--font-body);" value="{{ formMsg }}" onInput="{{ onMsg }}" rows="4" placeholder="{{ t.contact.phMsg }}"></textarea>
+              </label>
+              <a class="btn btn-primary" style="padding: 14px 20px; justify-content: flex-start;" href="{{ contactSubmitHref }}" target="_blank" rel="noopener">{{ t.contact.send }}
+                <svg style="margin-left: 10px;" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </sc-if>
+
+  <!-- ============================= FOOTER ============================= -->
+  <footer style="background: var(--color-text); color: var(--color-bg); padding: clamp(40px, 5vw, 64px) clamp(18px, 5vw, 56px) clamp(28px, 3vw, 40px);">
+    <div style="max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: clamp(28px, 4vw, 56px);">
+      <div>
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+          <span style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: var(--color-accent); color: #fff;"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="4" r="2"></circle><circle cx="18" cy="8" r="2"></circle><circle cx="20" cy="16" r="2"></circle><path d="M9 10a5 5 0 0 1 5 5v3.5a3.5 3.5 0 0 1-6.84 1.045Q6.52 17.48 4.46 16.84A3.5 3.5 0 0 1 5.5 10Z"></path></svg></span>
+          <span style="font-family: var(--font-heading); font-weight: 800; font-size: 18px;">Hogar Don Carlitos</span>
+        </div>
+        <p style="font-size: 15px; line-height: 1.6; color: rgba(255,255,255,.7); margin: 0; max-width: 34ch;">{{ t.footer.tagline }}</p>
+      </div>
+      <div>
+        <h4 style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,.55); margin: 0 0 16px;">{{ t.footer.navTitle }}</h4>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="4">
+            <button style="background: none; border: 0; padding: 0; text-align: left; color: rgba(255,255,255,.85); font-family: var(--font-body); font-size: 15px; cursor: pointer;" onClick="{{ item.onClick }}">{{ item.label }}</button>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <h4 style="font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,.55); margin: 0 0 16px;">{{ t.footer.followTitle }}</h4>
+        <div style="display: flex; gap: 12px;">
+          <a style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 2px solid rgba(255,255,255,.3); color: #fff;" href="https://www.instagram.com/hogardoncarlitos" target="_blank" rel="noopener" aria-label="Instagram"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><path d="M17.5 6.5h.01"></path></svg></a>
+          <a style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 2px solid rgba(255,255,255,.3); color: #fff;" href="{{ waContactHref }}" target="_blank" rel="noopener" aria-label="WhatsApp"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.13c-.24.68-1.42 1.32-1.95 1.36-.5.04-.5.4-3.16-.66-2.66-1.05-4.34-3.75-4.47-3.92-.13-.18-1.07-1.42-1.07-2.71s.68-1.92.92-2.19c.24-.26.53-.33.7-.33.18 0 .35 0 .5.01.16.01.38-.06.59.45.24.57.8 1.98.87 2.12.07.13.12.29.02.47-.09.18-.14.29-.27.44-.13.15-.28.34-.4.45-.13.13-.27.28-.12.54.16.26.7 1.15 1.5 1.86 1.03.92 1.9 1.2 2.17 1.34.26.13.42.11.57-.07.15-.18.66-.77.83-1.03.18-.26.35-.22.59-.13.24.09 1.52.72 1.78.85.26.13.44.2.5.31.06.11.06.63-.18 1.31z"></path></svg></a>
+        </div>
+        <button class="btn btn-primary" style="margin-top: 22px; padding: 12px 20px;" onClick="{{ goDonate }}">{{ t.nav.donate }}</button>
+      </div>
+    </div>
+    <div style="max-width: 1240px; margin: clamp(32px, 4vw, 48px) auto 0; border-top: 1px solid rgba(255,255,255,.2); padding-top: 22px; font-size: 13px; color: rgba(255,255,255,.55);">© {{ year }} Hogar Don Carlitos · {{ t.footer.rights }}</div>
+  </footer>
+
+</div>
+</x-dc>
+<!-- Lógica de la app: estado, traducciones (es/en), datos de los perritos y navegación. -->
+<script type="text/x-dc" data-dc-script data-props="{&quot;defaultLang&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;es&quot;,&quot;en&quot;],&quot;default&quot;:&quot;es&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Idioma&quot;},&quot;carouselSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:5,&quot;min&quot;:2,&quot;max&quot;:8,&quot;step&quot;:0.5,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Carrusel&quot;},&quot;whatsapp&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;573188567400&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Contacto&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { page: 'inicio', lang: (props.defaultLang === 'en' ? 'en' : 'es'), slide: 0, isMobile: false, menuOpen: false, formName: '', formMsg: '' };
+    this._slideCount = 5;
+  }
+  componentDidMount() {
+    const secs = Number(this.props.carouselSeconds) || 4.5;
+    this._timer = setInterval(() => this.setState(s => ({ slide: (s.slide + 1) % this._slideCount })), secs * 1000);
+    this._onResize = () => this.setState({ isMobile: window.innerWidth < 900 });
+    this._onResize();
+    window.addEventListener('resize', this._onResize);
+  }
+  componentWillUnmount() {
+    clearInterval(this._timer);
+    window.removeEventListener('resize', this._onResize);
+  }
+  waNum() { return String(this.props.whatsapp || '573188567400').replace(/[^0-9]/g, ''); }
+  wa(msg) { return 'https://wa.me/' + this.waNum() + (msg ? ('?text=' + encodeURIComponent(msg)) : ''); }
+  go(page) { return () => { this.setState({ page, menuOpen: false }); if (typeof window !== 'undefined') window.scrollTo(0, 0); }; }
+
+  data() {
+    return {
+      es: {
+        brandTag: 'Fundación animal',
+        switchTo: 'Ver en inglés (English)',
+        langOther: 'EN',
+        nav: { home: 'Inicio', about: '¿Quiénes somos?', adopt: 'Adopciones', contact: 'Contáctanos', donate: 'Donar' },
+        hero: {
+          kicker: 'Ayúdame a encontrar un hogar',
+          title: 'Hola… ¿serías tú mi familia?',
+          sub: 'Soy uno de los peluditos que espera en el Hogar Don Carlitos. Con tu ayuda tengo comida, un techo calientito y la oportunidad de encontrar un hogar para siempre.',
+          ctaDonate: 'Quiero ayudar',
+          ctaAdopt: 'Conóceme',
+          welcomeBubble: 'Hola, te doy la bienvenida a la página de Hogar Don Carlitos',
+          captions: [
+            'Me rescataron de la calle un día de lluvia'
+          ]
+        },
+        impact: {
+          kicker: 'Lo que logramos juntos',
+          title: 'Cada rescate empieza con alguien que decidió no mirar hacia otro lado',
+          stats: [
+            { n: '15', l: 'Años abriendo la puerta a los que nadie quiso' },
+            { n: '31', l: 'Peluditos que hoy esperan una familia' },
+            { n: '8', l: 'Perritos con los que empezó esta historia' }
+          ]
+        },
+        aboutTeaser: {
+          kicker: 'Quiénes nos cuidan',
+          title: 'Quince años haciendo hogar',
+          body: 'Esto empezó en una casa, con ocho perritos y muchas ganas de ayudar. Quince años después seguimos rescatando a los más vulnerables: los curamos, los esterilizamos, los vacunamos y los acompañamos hasta que llega su familia. Todo es posible gracias a personas de buen corazón como tú.',
+          cta: 'Conoce nuestra historia'
+        },
+        featured: {
+          kicker: 'Buscan hogar',
+          title: 'Ellos ya están listos para quererte',
+          cta: 'Ver todos'
+        },
+        about: {
+          kicker: '¿Quiénes somos?',
+          title: 'Somos la voz de los que no pueden pedir ayuda',
+          lead: 'El refugio de los peluditos nació hace 15 años. Todo empezó en casa, cuidando a cinco perros cazadores y a los tres que ya eran míos. Nunca imaginé hasta dónde nos llevaría ese primer gesto.',
+          storyTitle: 'Cómo empezó todo',
+          story1: 'Con el tiempo nos dimos a la tarea de salir a rescatar a los más vulnerables: los curamos, los esterilizamos, los vacunamos y les dimos un lugar seguro donde volver a empezar. Cada rescate nos enseñó algo nuevo sobre lo que un perrito puede resistir y perdonar.',
+          story2: 'Hoy esto es un sitio lleno de amor. Cada peludito llega con una historia a cuestas y esas experiencias les dieron una personalidad propia, inconfundible. Después de conocerlos, ya es imposible desistir de ayudarlos: por eso seguimos aquí, un día más, por cada uno de ellos.',
+          story3: 'En este momento hay 31 integrantes en el refugio esperando por una familia que los quiera.',
+          valuesTitle: 'Lo que nos mueve',
+          values: [
+            { t: 'Amor sin condiciones', d: 'Cada perrito recibe cariño, paciencia y el tiempo que necesita para sanar.' },
+            { t: 'Transparencia total', d: 'Cada donación se destina al cuidado directo de los animalitos. Sin intermediarios.' },
+            { t: 'Adopción responsable', d: 'Buscamos hogares que entiendan que adoptar es un compromiso de por vida.' }
+          ]
+        },
+        adopt: {
+          kicker: 'Adopciones',
+          title: 'Ellos ya te están esperando',
+          lead: 'Estos son algunos de nuestros peluditos que buscan un hogar. Todos están desparasitados y en proceso de vacunación y esterilización. Si alguno robó tu corazón, escríbenos por WhatsApp y te contamos cómo adoptarlo.',
+          request: 'Solicitar adopción',
+          note: 'Adoptar es gratis, pero implica una entrevista y compromiso responsable. ¿Aún no puedes adoptar? También puedes apadrinar a un perrito o ayudarnos como hogar de paso.',
+          waMsg: (name) => '¡Hola Hogar Don Carlitos! Me interesa adoptar a ' + name + '. ¿Me cuentan cómo es el proceso?'
+        },
+        donate: {
+          kicker: 'Donaciones',
+          title: 'Con muy poquito, les cambias la vida',
+          lead: 'Tu ayuda se convierte en comida, medicinas y un lugar seguro para dormir. Elige la forma de apoyar que más te acomode: cada aporte cuenta y llega directo a los peluditos.',
+          bank: {
+            title: 'Transferencia bancaria',
+            body: 'Haz tu donación directamente a nuestra cuenta. (Reemplaza estos datos por los de la fundación.)',
+            rows: [
+              { k: 'Banco', v: 'Bancolombia' },
+              { k: 'Tipo de cuenta', v: 'Ahorros' },
+              { k: 'Número', v: '000-000000-00' },
+              { k: 'Titular', v: 'Fundación Hogar Don Carlitos' }
+            ]
+          },
+          kind: {
+            title: 'Donación en especie',
+            body: 'También necesitamos insumos para el día a día del refugio:',
+            items: ['Concentrado para perro', 'Medicinas y desparasitantes', 'Cobijas y camas', 'Correas, platos y juguetes'],
+            cta: 'Coordinar entrega por WhatsApp'
+          },
+          sponsor: {
+            title: 'Apadrina un peludito',
+            body: 'Con un aporte mensual sostienes el cuidado de un perrito hasta que encuentre su hogar.',
+            waMsg: (amt) => '¡Hola! Quiero apadrinar a un peludito con un aporte mensual de ' + amt + '. ¿Cómo lo hago?'
+          }
+        },
+        contact: {
+          kicker: 'Contáctanos',
+          title: 'Estamos a un mensaje de distancia',
+          lead: 'Escríbenos para adoptar, donar, ser voluntario o resolver cualquier duda. Nos encanta saber de personas que quieren ayudar.',
+          locLabel: 'Ubicación',
+          locValue: 'Colombia · A convenir',
+          formTitle: 'Escríbenos',
+          formSub: 'Cuéntanos cómo quieres ayudar y te responderemos por WhatsApp.',
+          fName: 'Tu nombre',
+          phName: '¿Cómo te llamas?',
+          fMsg: 'Mensaje',
+          phMsg: 'Quiero adoptar / donar / ser voluntario…',
+          send: 'Enviar por WhatsApp',
+          waMsg: (n, m) => '¡Hola Hogar Don Carlitos! Soy ' + (n || 'un amigo de los animalitos') + '. ' + (m || 'Quiero ayudar.')
+        },
+        poster: {
+          title: 'Hoy puedes ser el héroe de un peludito',
+          sub: 'No necesitas mucho para cambiar una vida. Una donación, una adopción o simplemente compartir nuestra página ya es un acto de amor.',
+          ctaDonate: 'Donar por WhatsApp',
+          ctaContact: 'Escríbenos'
+        },
+        footer: {
+          tagline: 'Rescatamos, cuidamos y buscamos hogar para perritos abandonados. Gracias por ser parte de su historia.',
+          navTitle: 'Navegación',
+          followTitle: 'Síguenos',
+          rights: 'Hecho con amor por los animalitos.'
+        }
+      },
+      en: {
+        brandTag: 'Animal foundation',
+        switchTo: 'Ver en español (Spanish)',
+        langOther: 'ES',
+        nav: { home: 'Home', about: 'About us', adopt: 'Adoptions', contact: 'Contact', donate: 'Donate' },
+        hero: {
+          kicker: 'Help me find a home',
+          title: 'Hi… could you be my family?',
+          sub: "I'm one of the little ones waiting at Hogar Don Carlitos. With your help I get food, a warm place to sleep, and the chance to find a forever home.",
+          ctaDonate: 'I want to help',
+          ctaAdopt: 'Meet me',
+          welcomeBubble: 'Hi, welcome to the Hogar Don Carlitos page',
+          captions: [
+            'They rescued me from the street on a rainy day'
+          ]
+        },
+        impact: {
+          kicker: 'What we achieve together',
+          title: 'Every rescue starts with someone who chose not to look away',
+          stats: [
+            { n: '15', l: 'Years opening the door to those nobody wanted' },
+            { n: '31', l: 'Little ones waiting today for a family' },
+            { n: '8', l: 'Dogs this whole story began with' }
+          ]
+        },
+        aboutTeaser: {
+          kicker: 'Who cares for us',
+          title: 'Fifteen years making a home',
+          body: 'This began in a house, with eight dogs and a strong wish to help. Fifteen years later we still rescue the most vulnerable ones: we heal them, spay and neuter them, vaccinate them, and stay with them until their family arrives. All of it is possible thanks to kind-hearted people like you.',
+          cta: 'Read our story'
+        },
+        featured: {
+          kicker: 'Looking for a home',
+          title: "They're ready to love you already",
+          cta: 'See all'
+        },
+        about: {
+          kicker: 'About us',
+          title: 'We are the voice of those who cannot ask for help',
+          lead: 'The shelter was born 15 years ago. It all started at home, caring for five hunting dogs and the three that were already mine. I never imagined how far that first gesture would take us.',
+          storyTitle: 'How it all began',
+          story1: 'Over time we set out to rescue the most vulnerable ones: we healed them, spayed and neutered them, vaccinated them, and gave them a safe place to start over. Every rescue taught us something new about what a dog can endure and forgive.',
+          story2: 'Today this is a place full of love. Every little one arrives carrying a story, and those experiences gave each of them their own unmistakable personality. Once you know them, giving up on them is simply not possible — that is why we are still here, one more day, for every single one.',
+          story3: 'Right now there are 31 members at the shelter waiting for a family to love them.',
+          valuesTitle: 'What drives us',
+          values: [
+            { t: 'Unconditional love', d: 'Every dog receives affection, patience and the time it needs to heal.' },
+            { t: 'Full transparency', d: 'Every donation goes to the direct care of the animals. No middlemen.' },
+            { t: 'Responsible adoption', d: 'We look for homes that understand adopting is a lifelong commitment.' }
+          ]
+        },
+        adopt: {
+          kicker: 'Adoptions',
+          title: "They're already waiting for you",
+          lead: 'These are some of our little ones looking for a home. All are dewormed and in the process of vaccination and neutering. If one steals your heart, message us on WhatsApp and we will tell you how to adopt.',
+          request: 'Request adoption',
+          note: 'Adoption is free, but involves an interview and a responsible commitment. Not ready to adopt yet? You can also sponsor a dog or help us as a foster home.',
+          waMsg: (name) => 'Hi Hogar Don Carlitos! I would like to adopt ' + name + '. Could you tell me about the process?'
+        },
+        donate: {
+          kicker: 'Donations',
+          title: 'With just a little, you change their lives',
+          lead: 'Your help becomes food, medicine and a safe place to sleep. Choose the way to support that suits you best: every contribution counts and goes straight to the little ones.',
+          bank: {
+            title: 'Bank transfer',
+            body: 'Make your donation directly to our account. (Replace these details with the foundation\u2019s.)',
+            rows: [
+              { k: 'Bank', v: 'Bancolombia' },
+              { k: 'Account type', v: 'Savings' },
+              { k: 'Number', v: '000-000000-00' },
+              { k: 'Holder', v: 'Fundación Hogar Don Carlitos' }
+            ]
+          },
+          kind: {
+            title: 'In-kind donation',
+            body: 'We also need supplies for the shelter\u2019s daily life:',
+            items: ['Dog food', 'Medicine and dewormers', 'Blankets and beds', 'Leashes, bowls and toys'],
+            cta: 'Arrange drop-off via WhatsApp'
+          },
+          sponsor: {
+            title: 'Sponsor a dog',
+            body: 'With a monthly contribution you sustain the care of a dog until it finds its home.',
+            waMsg: (amt) => 'Hi! I want to sponsor a dog with a monthly contribution of ' + amt + '. How do I do it?'
+          }
+        },
+        contact: {
+          kicker: 'Contact',
+          title: "We're just one message away",
+          lead: 'Write to us to adopt, donate, volunteer or ask anything. We love hearing from people who want to help.',
+          locLabel: 'Location',
+          locValue: 'Colombia · By arrangement',
+          formTitle: 'Write to us',
+          formSub: 'Tell us how you want to help and we will reply on WhatsApp.',
+          fName: 'Your name',
+          phName: 'What is your name?',
+          fMsg: 'Message',
+          phMsg: 'I want to adopt / donate / volunteer…',
+          send: 'Send via WhatsApp',
+          waMsg: (n, m) => 'Hi Hogar Don Carlitos! I\u2019m ' + (n || 'a friend of the animals') + '. ' + (m || 'I want to help.')
+        },
+        poster: {
+          title: 'Today you can be a little dog\u2019s hero',
+          sub: 'You don\u2019t need much to change a life. A donation, an adoption, or simply sharing our page is already an act of love.',
+          ctaDonate: 'Donate via WhatsApp',
+          ctaContact: 'Write to us'
+        },
+        footer: {
+          tagline: 'We rescue, care for and find homes for abandoned dogs. Thank you for being part of their story.',
+          navTitle: 'Navigation',
+          followTitle: 'Follow us',
+          rights: 'Made with love for the animals.'
+        }
+      }
+    };
+  }
+
+  dogsData() {
+    return [
+      { id: 'luna',  es: { n: 'Luna',  meta: '2 años · Mediana',   p: 'Cariñosa y un poco tímida al principio; cuando confía, no se despega de ti.', h: 'Vacunada y esterilizada' }, en: { n: 'Luna',  meta: '2 yrs · Medium', p: 'Loving and a bit shy at first; once she trusts you, she never leaves your side.', h: 'Vaccinated & spayed' } },
+      { id: 'max',   es: { n: 'Max',   meta: '4 años · Grande',    p: 'Juguetón y leal, perfecto para una familia activa que ame los paseos.', h: 'Vacunado y esterilizado' }, en: { n: 'Max',   meta: '4 yrs · Large', p: 'Playful and loyal, perfect for an active family that loves walks.', h: 'Vaccinated & neutered' } },
+      { id: 'canela',es: { n: 'Canela',meta: '1 año · Pequeña',    p: 'Pura energía y dulzura; le encanta jugar y recibir mimos.', h: 'Vacunada' }, en: { n: 'Canela', meta: '1 yr · Small', p: 'Pure energy and sweetness; loves to play and get cuddles.', h: 'Vaccinated' } },
+      { id: 'rocky', es: { n: 'Rocky', meta: '5 años · Grande',    p: 'Tranquilo y protector; el compañero fiel que siempre está a tu lado.', h: 'Vacunado y esterilizado' }, en: { n: 'Rocky', meta: '5 yrs · Large', p: 'Calm and protective; the faithful companion always by your side.', h: 'Vaccinated & neutered' } },
+      { id: 'nina',  es: { n: 'Nina',  meta: '3 años · Mediana',   p: 'Sociable y paciente, se lleva de maravilla con los niños.', h: 'Vacunada y esterilizada' }, en: { n: 'Nina',  meta: '3 yrs · Medium', p: 'Sociable and patient, gets along wonderfully with kids.', h: 'Vaccinated & spayed' } },
+      { id: 'simon', es: { n: 'Simón', meta: '8 meses · Pequeño',  p: 'Curioso y travieso; un cachorro con muchas ganas de aprender.', h: 'Primeras vacunas' }, en: { n: 'Simón', meta: '8 mo · Small', p: 'Curious and mischievous; a puppy eager to learn.', h: 'First vaccines' } },
+      { id: 'bella', es: { n: 'Bella', meta: '6 años · Mediana',   p: 'Serena y agradecida; solo pide un rincón tranquilo y compañía.', h: 'Vacunada y esterilizada' }, en: { n: 'Bella', meta: '6 yrs · Medium', p: 'Serene and grateful; she just asks for a quiet corner and company.', h: 'Vaccinated & spayed' } },
+      { id: 'toby',  es: { n: 'Toby',  meta: '2 años · Mediano',   p: 'Aventurero y sociable; le encanta explorar y conocer gente nueva.', h: 'Vacunado y esterilizado' }, en: { n: 'Toby',  meta: '2 yrs · Medium', p: 'Adventurous and sociable; loves to explore and meet new people.', h: 'Vaccinated & neutered' } },
+      { id: 'coco',  es: { n: 'Coco',  meta: '1 año · Pequeño',    p: 'Mimoso de corazón; busca un regazo donde quedarse dormido.', h: 'Vacunado' }, en: { n: 'Coco',  meta: '1 yr · Small', p: 'A cuddler at heart; looking for a lap to fall asleep on.', h: 'Vaccinated' } },
+      { id: 'duque', es: { n: 'Duque', meta: '7 años · Grande',    p: 'Sabio y calmado; sueña con un retiro feliz junto a alguien paciente.', h: 'Vacunado y esterilizado' }, en: { n: 'Duque', meta: '7 yrs · Large', p: 'Wise and calm; dreams of a happy retirement beside someone patient.', h: 'Vaccinated & neutered' } }
+    ];
+  }
+
+  renderVals() {
+    const lang = this.state.lang;
+    const t = this.data()[lang];
+    const page = this.state.page;
+
+    const navDefs = [
+      { key: 'inicio', label: t.nav.home },
+      { key: 'nosotros', label: t.nav.about },
+      { key: 'adopciones', label: t.nav.adopt },
+      { key: 'contacto', label: t.nav.contact }
+    ];
+    const navItems = navDefs.map(d => {
+      const active = d.key === page;
+      return {
+        label: d.label,
+        onClick: this.go(d.key),
+        style: 'background:none;border:0;padding:0;cursor:pointer;font-family:var(--font-heading);font-weight:700;font-size:15px;letter-spacing:-0.01em;color:' + (active ? 'var(--color-accent)' : 'var(--color-text)') + ';border-bottom:2px solid ' + (active ? 'var(--color-accent)' : 'transparent') + ';padding-bottom:2px;',
+        mobileStyle: 'text-align:left;background:none;border:0;border-top:1px solid var(--color-divider);padding:16px clamp(18px,5vw,56px);cursor:pointer;font-family:var(--font-heading);font-weight:700;font-size:16px;color:' + (active ? 'var(--color-accent)' : 'var(--color-text)') + ';'
+      };
+    });
+
+    const totalSlides = 5;
+    const slides = [{
+      id: 'hero-photo-welcome', isWelcome: true, isImg1: true, isImg2: false, isImg3: false, isImg4: false,
+      wrapStyle: 'position:absolute;inset:0;opacity:' + (0 === this.state.slide ? '1' : '0') + ';transition:opacity 1.3s ease;'
+    }, {
+      id: 'hero-photo-extra', isWelcome: true, isImg1: false, isImg2: true, isImg3: false, isImg4: false,
+      wrapStyle: 'position:absolute;inset:0;opacity:' + (1 === this.state.slide ? '1' : '0') + ';transition:opacity 1.3s ease;'
+    }, {
+      id: 'hero-photo-extra2', isWelcome: true, isImg1: false, isImg2: false, isImg3: true, isImg4: false,
+      wrapStyle: 'position:absolute;inset:0;opacity:' + (2 === this.state.slide ? '1' : '0') + ';transition:opacity 1.3s ease;'
+    }, {
+      id: 'hero-photo-extra3', isWelcome: true, isImg1: false, isImg2: false, isImg3: false, isImg4: true, isImg5: false,
+      wrapStyle: 'position:absolute;inset:0;opacity:' + (3 === this.state.slide ? '1' : '0') + ';transition:opacity 1.3s ease;'
+    }, {
+      id: 'hero-photo-extra4', isWelcome: true, isImg1: false, isImg2: false, isImg3: false, isImg4: false, isImg5: true,
+      wrapStyle: 'position:absolute;inset:0;opacity:' + (4 === this.state.slide ? '1' : '0') + ';transition:opacity 1.3s ease;'
+    }];
+    const dots = Array.from({ length: totalSlides }, (_, i) => ({
+      onClick: () => this.setState({ slide: i }),
+      style: 'width:' + (i === this.state.slide ? '30px' : '12px') + ';height:6px;border:0;padding:0;cursor:pointer;background:' + (i === this.state.slide ? 'var(--color-accent)' : 'rgba(255,255,255,.5)') + ';transition:width .3s ease,background .3s ease;'
+    }));
+    const activeCaption = this.state.slide === 4 ? t.hero.captions[0] : '';
+    const showWelcomeBubble = this.state.slide === 0;
+
+    const dogs = this.dogsData().map(d => {
+      const loc = d[lang];
+      return {
+        slotId: 'dog-' + d.id,
+        placeholder: loc.n,
+        name: loc.n,
+        meta: loc.meta,
+        personality: loc.p,
+        health: loc.h,
+        link: this.wa(t.adopt.waMsg(loc.n))
+      };
+    });
+    const featuredDogs = dogs.slice(0, 3);
+
+    const sponsorTiers = [
+      { amount: '$20.000', label: lang === 'es' ? 'Comida para un perrito' : 'Food for one dog', href: this.wa(t.donate.sponsor.waMsg('$20.000')) },
+      { amount: '$50.000', label: lang === 'es' ? 'Comida + cuidados' : 'Food + care', href: this.wa(t.donate.sponsor.waMsg('$50.000')) },
+      { amount: '$100.000', label: lang === 'es' ? 'Apadrinamiento completo' : 'Full sponsorship', href: this.wa(t.donate.sponsor.waMsg('$100.000')) }
+    ];
+
+    const posterBlock = 'display:none;';
+
+    return {
+      t, lang, year: new Date().getFullYear(),
+      isMobile: this.state.isMobile, isDesktop: !this.state.isMobile,
+      menuOpen: this.state.menuOpen, menuClosed: !this.state.menuOpen,
+      showMobileMenu: this.state.isMobile && this.state.menuOpen,
+      isHome: page === 'inicio', isAbout: page === 'nosotros', isAdopt: page === 'adopciones', isContact: page === 'contacto', isDonate: page === 'donar',
+      navItems, slides, dots, activeCaption, showWelcomeBubble, welcomeBubble: t.hero.welcomeBubble, dogs, featuredDogs, sponsorTiers,
+      posterBlock,
+      donateHref: '#', // overridden by button handlers below via goDonate on the link? keep hash
+      goHome: this.go('inicio'), goAbout: this.go('nosotros'), goAdopt: this.go('adopciones'), goContact: this.go('contacto'), goDonate: this.go('donar'),
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      toggleLang: () => this.setState(s => ({ lang: s.lang === 'es' ? 'en' : 'es', menuOpen: false })),
+      waContactHref: this.wa(''),
+      waKindHref: this.wa(t.donate.kind.body),
+      formName: this.state.formName, formMsg: this.state.formMsg,
+      onName: (e) => this.setState({ formName: e.target.value }),
+      onMsg: (e) => this.setState({ formMsg: e.target.value }),
+      contactSubmitHref: this.wa(t.contact.waMsg(this.state.formName, this.state.formMsg))
+    };
+  }
+}
+</script>
+</body>
+</html>
